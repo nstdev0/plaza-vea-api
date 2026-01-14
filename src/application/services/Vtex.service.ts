@@ -1,6 +1,5 @@
 import { AppConfig } from "@config/config.js";
 import type { IVtexService } from "./IVtexService.js";
-import type { Product } from "@domain/entities/Product.js";
 import type { VtexProduct } from "@infrastructure/types/VtexTypes.js";
 
 export class VtexService implements IVtexService {
