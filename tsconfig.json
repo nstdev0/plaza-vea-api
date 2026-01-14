@@ -12,7 +12,7 @@
     "module": "nodenext",
     "moduleResolution": "NodeNext",
     "types": [],
-    "lib": ["ES2023"],
+    "lib": ["ES2023", "DOM"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
