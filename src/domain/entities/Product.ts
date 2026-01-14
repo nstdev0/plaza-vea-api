@@ -1,7 +1,4 @@
-import type {
-  Decimal,
-  JsonValue,
-} from "../../../generated/prisma/internal/prismaNamespace";
+import type Decimal from "decimal.js";
 
 export class Product {
   constructor(
@@ -11,7 +8,7 @@ export class Product {
     public price: Decimal,
     public imageUrl: string | null,
     public brand: string | null,
-    public readonly rawJson: JsonValue,
+    public readonly rawJson: any,
     public createdAt: Date,
     public updatedAt: Date
   ) {}
