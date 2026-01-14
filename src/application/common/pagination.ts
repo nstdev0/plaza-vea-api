@@ -1,4 +1,4 @@
-import type { ProductFindManyArgs } from "../../../generated/prisma/models";
+import type { ProductFindManyArgs } from "src/generated/prisma/models.js";
 
 export interface IPageableRequest {
   page?: number;

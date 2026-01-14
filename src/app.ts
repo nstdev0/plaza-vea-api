@@ -2,10 +2,10 @@ import express, { type Application } from "express";
 import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
-import { errorHandler } from "./presentation/middlewares/errorHandler";
 
-import productRoutes from "./routes/products";
+import productRoutes from "./presentation/routes/products.js";
 import rateLimit from "express-rate-limit";
+import { errorHandler } from "./presentation/middlewares/errorHandler.js";
 
 const app: Application = express();
 

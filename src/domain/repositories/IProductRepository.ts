@@ -1,9 +1,9 @@
-import type { Product } from "@domain/entities/Product";
-import type { ProductCreateInput } from "../../../generated/prisma/models";
+import type { Product } from "@domain/entities/Product.js";
 import type {
   IPageableRequest,
   IPageableResult,
-} from "../../application/common/pagination";
+} from "src/application/common/pagination.js";
+import type { ProductCreateInput } from "src/generated/prisma/models.js";
 
 export interface IProductRepository {
   getAll(filters: IPageableRequest): Promise<IPageableResult<Product>>;

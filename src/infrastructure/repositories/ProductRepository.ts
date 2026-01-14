@@ -1,14 +1,14 @@
-import { prisma } from "@database/prisma";
-import type { Product } from "@domain/entities/Product";
-import type { IProductRepository } from "@domain/repositories/IProductRepository";
-import type {
-  ProductCreateInput,
-  ProductUpdateInput,
-} from "../../../generated/prisma/models";
+import { prisma } from "@database/prisma.js";
+import type { Product } from "@domain/entities/Product.js";
+import type { IProductRepository } from "@domain/repositories/IProductRepository.js";
 import type {
   IPageableRequest,
   IPageableResult,
-} from "../../application/common/pagination";
+} from "src/application/common/pagination.js";
+import type {
+  ProductCreateInput,
+  ProductUpdateInput,
+} from "src/generated/prisma/models.js";
 
 export class ProductRepository implements IProductRepository {
   async getAll(filters: IPageableRequest): Promise<IPageableResult<Product>> {
@@ -63,19 +63,5 @@ export class ProductRepository implements IProductRepository {
       update: data,
       where: { skuId: data.skuId },
     });
-  }
-
-  async update(data: ProductUpdateInput, skuId: string): Promise<Product> {
-    return await prisma.product.update({
-      where: { skuId },
-      data: data,
-    });
-  }
-
-  async delete(skuId: string): Promise<void> {
-    await prisma.product.delete({
-      where: { skuId },
-    });
-    return Promise.resolve();
   }
 }

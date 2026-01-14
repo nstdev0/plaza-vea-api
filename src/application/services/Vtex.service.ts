@@ -1,7 +1,7 @@
-import type { IVitexService } from "./IVtexService";
-import { AppConfig } from "@config/config";
+import { AppConfig } from "@config/config.js";
+import type { IVtexService } from "./IVtexService.js";
 
-export class VtexService implements IVitexService {
+export class VtexService implements IVtexService {
   constructor() {}
 
   async fetchByEan(ean: string) {

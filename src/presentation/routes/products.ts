@@ -1,9 +1,9 @@
 import { Router, type Application } from "express";
-import { ProductController } from "../presentation/controllers/product.controller";
-import { GetProductBySkuIdUseCase } from "../application/use-cases/GetProductBySkuId.use-case";
-import { ProductRepository } from "@infrastructure/repositories/ProductRepository";
-import { VtexService } from "../application/services/Vtex.service";
-import { GetAllProductsUseCase } from "../application/use-cases/GetAllProducts.use-case";
+import { ProductController } from "../controllers/product.controller.js";
+import { GetProductBySkuIdUseCase } from "../../application/use-cases/GetProductBySkuId.use-case.js";
+import { VtexService } from "../../application/services/Vtex.service.js";
+import { GetAllProductsUseCase } from "../../application/use-cases/GetAllProducts.use-case.js";
+import { ProductRepository } from "@infrastructure/repositories/ProductRepository.js";
 
 const router: Router = Router();
 

@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
-import type { GetProductBySkuIdUseCase } from "../../application/use-cases/GetProductBySkuId.use-case";
-import type { GetAllProductsUseCase } from "../../application/use-cases/GetAllProducts.use-case";
+import type { GetAllProductsUseCase } from "src/application/use-cases/GetAllProducts.use-case.js";
+import type { GetProductBySkuIdUseCase } from "src/application/use-cases/GetProductBySkuId.use-case.js";
 
 export class ProductController {
   constructor(
