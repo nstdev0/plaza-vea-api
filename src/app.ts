@@ -1,11 +1,12 @@
 import express, { type Application } from "express";
-import helmet from "helmet";
+import * as helmetPkg from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 
 import productRoutes from "./presentation/routes/products.js";
 import { rateLimit } from "express-rate-limit";
 import { errorHandler } from "./presentation/middlewares/errorHandler.js";
+import { he } from "zod/v4/locales";
 
 const app: Application = express();
 
@@ -21,6 +22,8 @@ const apiLimiter = rateLimit({
       "Has excedido el límite de peticiones. Intenta de nuevo en 15 minutos.",
   },
 });
+
+const helmet = helmetPkg.default || helmetPkg;
 
 app.use(helmet());
 app.use(
