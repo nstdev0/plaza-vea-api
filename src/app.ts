@@ -1,12 +1,15 @@
-import express, { type Application } from "express";
-import * as helmetPkg from "helmet";
+import express, {
+  type Application,
+  type Request,
+  type Response,
+} from "express";
+import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 
 import productRoutes from "./presentation/routes/products.js";
 import { rateLimit } from "express-rate-limit";
 import { errorHandler } from "./presentation/middlewares/errorHandler.js";
-import { he } from "zod/v4/locales";
 
 const app: Application = express();
 
@@ -23,8 +26,6 @@ const apiLimiter = rateLimit({
   },
 });
 
-const helmet = helmetPkg.default || helmetPkg;
-
 app.use(helmet());
 app.use(
   cors({
@@ -39,13 +40,13 @@ app.use(morgan("dev"));
 // Routes
 app.use("/api", apiLimiter);
 
-app.get("/api/health", (req, res) => {
+app.get("/api/health", (req: Request, res: Response) => {
   res.status(200).json({ status: "OK", timestamp: new Date() });
 });
 
 app.use("/api/products", productRoutes);
 
-app.use("/api/", (req, res) => {
+app.use("/api/", (req: Request, res: Response) => {
   res.status(404).json({ error: "Endpoint not found" });
 });
 
