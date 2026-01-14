@@ -1,4 +1,4 @@
-import { ProductRepository } from "@infrastructure/repositories/ProductRepository.js";
+import { ProductRepository } from "src/infrastructure/repositories/ProductRepository.js";
 import { Router } from "express";
 import { VtexService } from "src/application/services/Vtex.service.js";
 import { GetAllProductsUseCase } from "src/application/use-cases/GetAllProducts.use-case.js";
