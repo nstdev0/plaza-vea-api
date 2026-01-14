@@ -27,6 +27,7 @@ model Product {
   // Guardamos TODA la data original de VTEX aquí (backup)
   rawJson Json
 
-  // Para saber cuándo invalidar el caché (ej. precios viejos)
-  lastUpdated DateTime @default(now())
+  // Auditoría
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

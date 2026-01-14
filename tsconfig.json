@@ -16,6 +16,13 @@
     // "types": ["node"],
     // and npm install -D @types/node
 
+    "paths": {
+      "@domain/*": ["./src/domain/*"],
+      "@database/*": ["./src/infrastructure/database/*"],
+      "@infrastructure/*": ["./src/infrastructure/*"],
+      "@config/*": ["./src/config/*"]
+    },
+
     // Other Outputs
     "sourceMap": true,
     "declaration": true,
