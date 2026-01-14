@@ -1,6 +1,6 @@
 // src/infrastructure/mappers/ProductMapper.ts
-import { Product } from "@domain/entities/Product.js";
 import { Decimal } from "@prisma/client/runtime/index-browser";
+import { Product } from "src/domain/entities/Product.js";
 
 export class ProductMapper {
   static toDomain(raw: any): Product {
