@@ -4,7 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 
 import productRoutes from "./presentation/routes/products.js";
-import rateLimit from "express-rate-limit";
+import { rateLimit } from "express-rate-limit";
 import { errorHandler } from "./presentation/middlewares/errorHandler.js";
 
 const app: Application = express();
