@@ -1,4 +1,4 @@
-import type { VtexProduct } from "src/infrastructure/types/VtexTypes.js";
+import type { VtexProduct } from "../../infrastructure/types/VtexTypes.js";
 
 export interface IVtexService {
   fetchByEan(ean: string): Promise<VtexProduct | null>;

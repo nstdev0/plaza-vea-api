@@ -1,13 +1,13 @@
 import type {
   IPageableRequest,
   IPageableResult,
-} from "src/application/common/pagination.js";
-import type { Product } from "src/domain/entities/Product.js";
-import type { IProductRepository } from "src/domain/repositories/IProductRepository.js";
+} from "../../application/common/pagination.js";
+import type { Product } from "../../domain/entities/Product.js";
+import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
 import type {
   ProductCreateInput,
   ProductUpdateInput,
-} from "src/generated/prisma/models.js";
+} from "../../generated/prisma/models.js";
 import { prisma } from "../database/prisma.js";
 
 export class ProductRepository implements IProductRepository {

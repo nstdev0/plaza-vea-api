@@ -1,6 +1,6 @@
-import type { VtexProduct } from "src/infrastructure/types/VtexTypes.js";
+import type { VtexProduct } from "../../infrastructure/types/VtexTypes.js";
 import type { IVtexService } from "./IVtexService.js";
-import { AppConfig } from "src/config/config.js";
+import { AppConfig } from "../../config/config.js";
 
 export class VtexService implements IVtexService {
   // Tipado de retorno explícito: Promesa de Producto o Null

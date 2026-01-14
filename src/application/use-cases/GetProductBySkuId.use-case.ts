@@ -1,6 +1,6 @@
-import type { IProductRepository } from "src/domain/repositories/IProductRepository.js";
+import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
 import type { IVtexService } from "../services/IVtexService.js";
-import { ProductMapper } from "src/infrastructure/mappers/ProductMapper.js";
+import { ProductMapper } from "../../infrastructure/mappers/ProductMapper.js";
 
 export class GetProductBySkuIdUseCase {
   constructor(

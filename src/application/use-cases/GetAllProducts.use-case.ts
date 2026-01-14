@@ -1,4 +1,4 @@
-import type { ProductRepository } from "src/infrastructure/repositories/ProductRepository.js";
+import type { ProductRepository } from "../../infrastructure/repositories/ProductRepository.js";
 import type { IPageableRequest } from "../common/pagination.js";
 
 export class GetAllProductsUseCase {
