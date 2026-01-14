@@ -1,9 +1,9 @@
-import { ProductRepository } from "src/infrastructure/repositories/ProductRepository.js";
 import { Router } from "express";
-import { VtexService } from "src/application/services/Vtex.service.js";
-import { GetAllProductsUseCase } from "src/application/use-cases/GetAllProducts.use-case.js";
-import { GetProductBySkuIdUseCase } from "src/application/use-cases/GetProductBySkuId.use-case.js";
 import { ProductController } from "../controllers/product.controller.js";
+import { VtexService } from "../../application/services/Vtex.service.js";
+import { ProductRepository } from "../../infrastructure/repositories/ProductRepository.js";
+import { GetProductBySkuIdUseCase } from "../../application/use-cases/GetProductBySkuId.use-case.js";
+import { GetAllProductsUseCase } from "../../application/use-cases/GetAllProducts.use-case.js";
 
 const router: Router = Router();
 
