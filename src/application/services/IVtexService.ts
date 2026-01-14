@@ -1,6 +1,6 @@
-import type { Product } from "@domain/entities/Product.js";
+import type { VtexProduct } from "@infrastructure/types/VtexTypes.js";
 
 export interface IVtexService {
-  fetchByEan(ean: string): Promise<Product | null>;
-  fetchBySkuId(skuId: string): Promise<Product | null>;
+  fetchByEan(ean: string): Promise<VtexProduct | null>;
+  fetchBySkuId(skuId: string): Promise<VtexProduct | null>;
 }
