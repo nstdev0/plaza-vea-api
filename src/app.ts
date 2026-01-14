@@ -26,7 +26,7 @@ const apiLimiter = rateLimit({
   },
 });
 
-app.use(helmet());
+app.use((helmet as unknown as Function)());
 app.use(
   cors({
     origin: "*",
