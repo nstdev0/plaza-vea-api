@@ -3,29 +3,47 @@ import type { Product } from "@domain/entities/Product";
 import type { IProductRepository } from "@domain/repositories/IProductRepository";
 import type {
   ProductCreateInput,
-  ProductFindManyArgs,
   ProductUpdateInput,
 } from "../../../generated/prisma/models";
-import type { DefaultArgs } from "@prisma/client/runtime/client";
-import { ProductMapper } from "@infrastructure/mappers/ProductMapper";
+import type {
+  IPageableRequest,
+  IPageableResult,
+} from "../../application/common/pagination";
 
 export class ProductRepository implements IProductRepository {
-  // async findAll(filters: ProductFindManyArgs<DefaultArgs>): Promise<Product[]> {
-  //   const { select, omit, where, orderBy, cursor, take, skip, distinct } =
-  //     filters;
+  async getAll(filters: IPageableRequest): Promise<IPageableResult<Product>> {
+    const { page, pageSize } = filters ?? {};
+    const { select, omit, where, orderBy, cursor, take, skip, distinct } =
+      filters.filters ?? {};
 
-  //   const products = await prisma.product.findMany({
-  //     select: select ?? null,
-  //     omit: omit ?? null,
-  //     where: where ?? undefined,
-  //     orderBy: orderBy ?? undefined,
-  //     cursor: cursor ?? undefined,
-  //     take: take ?? undefined,
-  //     skip: skip ?? undefined,
-  //     distinct: distinct ?? undefined,
-  //   });
-  //   return ProductMapper.toDomain(products);
-  // }
+    const [total, data] = await prisma.$transaction([
+      prisma.product.count({
+        where: { ...where },
+      }),
+      prisma.product.findMany({
+        // select: select ?? null,
+        // omit: omit ?? null,
+        where: where ?? {},
+        orderBy: orderBy ?? { updatedAt: "desc" },
+        // cursor: cursor ?? undefined,
+        take: pageSize ?? 10,
+        skip: skip ?? 0,
+        // distinct: distinct ?? undefined,
+      }),
+    ]);
+
+    const pageableResult: IPageableResult<Product> = {
+      totalRecords: total,
+      currentPage: page ?? 1,
+      pageSize: pageSize ?? 10,
+      totalPages: Math.ceil(total / (pageSize ?? 1)) ?? 1,
+      hasNext: page ? page * (pageSize ? pageSize : 10) < total : false,
+      hasPrevious: page ? page > 1 : false,
+      records: data,
+    };
+
+    return pageableResult;
+  }
 
   async findBySkuId(skuId: string): Promise<Product | null> {
     return await prisma.product.findUnique({

@@ -1,29 +1,35 @@
-import { ProductRepository } from "@infrastructure/repositories/ProductRepository";
 import express, { type Application } from "express";
-import { VtexService } from "./application/services/Vtex.service";
-import { ProductController } from "./presentation/controllers/product.controller";
+import morgan from "morgan";
 import { errorHandler } from "./presentation/middlewares/errorHandler";
-import { GetProductBySkuIdUseCase } from "./application/use-cases/GetProductBySkuId.use-case";
+
+import productRoutes from "./routes/products";
 
 const app: Application = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
 
-// Infrastructure
-const productRepository = new ProductRepository();
-const vtexService = new VtexService();
+// // Setup dependencies:
 
-// Use-cases
-const getProductBySkuIdUseCase = new GetProductBySkuIdUseCase(
-  productRepository,
-  vtexService
-);
+// // Infrastructure
+// const productRepository = new ProductRepository();
+// const vtexService = new VtexService();
 
-// Controllers
-const productController = new ProductController(getProductBySkuIdUseCase);
+// // Use-cases
+// const getProductBySkuIdUseCase = new GetProductBySkuIdUseCase(
+//   productRepository,
+//   vtexService
+// );
+
+// // Controllers
+// const productController = new ProductController(getProductBySkuIdUseCase);
 
 // Routes
-app.get("/api/products/skuId/:skuId", productController.getOne);
+app.use("/api/products", productRoutes);
+
+app.use("/api", (req, res) => {
+  res.send("API is running");
+});
 
 // Middleware
 app.use(errorHandler);

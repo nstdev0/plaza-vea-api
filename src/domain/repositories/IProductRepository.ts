@@ -6,9 +6,13 @@ import type {
   ProductUpdateInput,
 } from "../../../generated/prisma/models";
 import type { DefaultArgs } from "@prisma/client/runtime/client";
+import type {
+  IPageableRequest,
+  IPageableResult,
+} from "../../application/common/pagination";
 
 export interface IProductRepository {
-  findAll(filters: ProductFindManyArgs<DefaultArgs>): Promise<Product[]>;
+  getAll(filters: IPageableRequest): Promise<IPageableResult<Product>>;
   findBySkuId(skuId: string): Promise<Product | null>;
   findByEan(ean: string): Promise<Product | null>;
   create(data: ProductCreateInput): Promise<Product>;
