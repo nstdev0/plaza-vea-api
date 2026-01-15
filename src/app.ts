@@ -7,7 +7,7 @@ import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 
-import productRoutes from "./presentation/routes/products.js";
+import productRoutes from "./presentation/routes/Products.routes.js";
 import { rateLimit } from "express-rate-limit";
 import { errorHandler } from "./presentation/middlewares/errorHandler.js";
 

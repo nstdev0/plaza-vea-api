@@ -4,6 +4,36 @@ import { AppConfig } from "../../config/config.js";
 
 export class VtexService implements IVtexService {
   // Tipado de retorno explícito: Promesa de Producto o Null
+
+  async fetchMany(from: string, to: string): Promise<VtexProduct[] | null> {
+    try {
+      const response = await fetch(
+        `${AppConfig.VTEX_API_URL}_from=${from}&_to=${to}`
+      );
+
+      if (!response.ok) {
+        console.warn(
+          `[VtexService] Error HTTP ${response.status} al buscar muchos productos`
+        );
+        return [];
+      }
+
+      const rawData = await response.json();
+
+      if (!Array.isArray(rawData) || rawData.length === 0) {
+        return [];
+      }
+
+      return rawData as VtexProduct[];
+    } catch (error) {
+      console.error(
+        `[VtexService] Fallo de red al buscar muchos productos:`,
+        error
+      );
+      return null;
+    }
+  }
+
   async fetchByEan(ean: string): Promise<VtexProduct | null> {
     try {
       const response = await fetch(

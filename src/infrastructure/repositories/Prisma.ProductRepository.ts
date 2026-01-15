@@ -1,3 +1,4 @@
+import { AppError } from "src/domain/errors/AppError.js";
 import type {
   IPageableRequest,
   IPageableResult,
@@ -12,9 +13,15 @@ import { prisma } from "../database/prisma.js";
 
 export class ProductRepository implements IProductRepository {
   async getAll(filters: IPageableRequest): Promise<IPageableResult<Product>> {
-    const { page, pageSize } = filters ?? {};
-    const { select, omit, where, orderBy, cursor, take, skip, distinct } =
+    let { page, pageSize } = filters ?? {};
+    let { select, omit, where, orderBy, cursor, take, skip, distinct } =
       filters.filters ?? {};
+
+    pageSize = pageSize ?? 10;
+
+    if (pageSize >= 50) {
+      throw new AppError(403, "pageSize cannot be greater than 50");
+    }
 
     const [total, data] = await prisma.$transaction([
       prisma.product.count({
