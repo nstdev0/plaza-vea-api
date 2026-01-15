@@ -38,7 +38,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // Routes
-app.use(".", (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
   res.redirect("/api/health");
 });
 
