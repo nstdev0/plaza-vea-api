@@ -1,9 +1,9 @@
 import type { NextFunction, Request, Response } from "express";
 import type { GetAllProductsUseCase } from "../../application/use-cases/GetAllLocalProducts.use-case.js";
 import type { GetProductBySkuIdUseCase } from "../../application/use-cases/GetProductBySkuId.use-case.js";
-import type { GetManyVtexProductsUseCase } from "src/application/use-cases/GetManyVtexProducts.use-case.js";
-import type { GetManyVtexProductsAndSaveUseCase } from "src/application/use-cases/GetManyVtexProductsAndSave.use-case.js";
-import { AppError } from "src/domain/errors/AppError.js";
+import type { GetManyVtexProductsUseCase } from "../../application/use-cases/GetManyVtexProducts.use-case.js";
+import type { GetManyVtexProductsAndSaveUseCase } from "../../application/use-cases/GetManyVtexProductsAndSave.use-case.js";
+import { AppError } from "../../domain/errors/AppError.js";
 
 export class ProductController {
   constructor(

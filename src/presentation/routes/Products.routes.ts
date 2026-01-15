@@ -4,8 +4,8 @@ import { ProductRepository } from "../../infrastructure/repositories/Prisma.Prod
 import { GetProductBySkuIdUseCase } from "../../application/use-cases/GetProductBySkuId.use-case.js";
 import { GetAllProductsUseCase } from "../../application/use-cases/GetAllLocalProducts.use-case.js";
 import { ProductController } from "../controllers/Product.controller.js";
-import { GetManyVtexProductsUseCase } from "src/application/use-cases/GetManyVtexProducts.use-case.js";
-import { GetManyVtexProductsAndSaveUseCase } from "src/application/use-cases/GetManyVtexProductsAndSave.use-case.js";
+import { GetManyVtexProductsUseCase } from "../../application/use-cases/GetManyVtexProducts.use-case.js";
+import { GetManyVtexProductsAndSaveUseCase } from "../../application/use-cases/GetManyVtexProductsAndSave.use-case.js";
 
 const router: Router = Router();
 

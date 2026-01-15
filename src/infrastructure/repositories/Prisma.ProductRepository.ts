@@ -1,14 +1,11 @@
-import { AppError } from "src/domain/errors/AppError.js";
+import { AppError } from "../../domain/errors/AppError.js";
 import type {
   IPageableRequest,
   IPageableResult,
 } from "../../application/common/pagination.js";
 import type { Product } from "../../domain/entities/Product.js";
 import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
-import type {
-  ProductCreateInput,
-  ProductUpdateInput,
-} from "../../generated/prisma/models.js";
+import type { ProductCreateInput } from "../../generated/prisma/models.js";
 import { prisma } from "../database/prisma.js";
 
 export class ProductRepository implements IProductRepository {

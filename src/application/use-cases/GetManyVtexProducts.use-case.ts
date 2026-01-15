@@ -1,4 +1,3 @@
-import type { IProductRepository } from "src/domain/repositories/IProductRepository.js";
 import type { IVtexService } from "../services/IVtexService.js";
 
 export class GetManyVtexProductsUseCase {
