@@ -37,4 +37,7 @@ router.get("/skuId/:skuId", productController.getOne);
 router.post("/vtex", productController.getManyVtex);
 router.post("/vtex/getAndSave", productController.getAndSaveManyVtex);
 
+// Cron endpoint to fetch and save products from VTEX
+router.get("/cron-fetch", productController.cronFetch);
+
 export default router;

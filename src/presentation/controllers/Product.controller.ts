@@ -4,6 +4,7 @@ import type { GetProductBySkuIdUseCase } from "../../application/use-cases/GetPr
 import type { GetManyVtexProductsUseCase } from "../../application/use-cases/GetManyVtexProducts.use-case.js";
 import type { GetManyVtexProductsAndSaveUseCase } from "../../application/use-cases/GetManyVtexProductsAndSave.use-case.js";
 import { AppError } from "../../domain/errors/AppError.js";
+import { AppConfig } from "src/config/config.js";
 
 export class ProductController {
   constructor(
@@ -77,6 +78,56 @@ export class ProductController {
         skuId as string
       );
       res.json(product);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  cronFetch = async (req: Request, res: Response, next: NextFunction) => {
+    req.setTimeout(10 * 60_000, () => {
+      res.status(408).send("Cron timeout");
+    }); // 10 minutes
+
+    const authHeader = req.headers["authorization"];
+
+    console.log("Cron fetch initiated");
+    console.log("Authorization Header:", authHeader);
+
+    if (authHeader !== `Bearer ${AppConfig.CRON_SECRET}`) {
+      return res.status(401).send("No autorizado");
+    }
+
+    try {
+      const ranges = Array<[number, number]>();
+
+      for (let start = 1; start <= 8723; start += 50) {
+        ranges.push([start, start + 49]);
+      }
+
+      const BATCH_SIZE = 5;
+
+      for (let i = 0; i < ranges.length; i += BATCH_SIZE) {
+        const batch = ranges.slice(i, i + BATCH_SIZE);
+
+        const results = await Promise.allSettled(
+          batch.map(([from, to]) =>
+            this.getManyVtexProductsAndSaveUseCase.execute(
+              from.toString(),
+              to.toString()
+            )
+          )
+        );
+
+        const failed = results.filter((r) => r.status === "rejected");
+
+        if (failed.length > 0) {
+          console.error("Errores en batch:", failed.length);
+        }
+      }
+      res.status(200).json({
+        status: "ok",
+        message: "Cron ejecutado correctamente",
+      });
     } catch (error) {
       next(error);
     }
