@@ -20,29 +20,31 @@ export class ProductRepository implements IProductRepository {
       throw new AppError(403, "pageSize cannot be greater than 50");
     }
 
+    const limit = pageSize ?? 10;
+    const offset = skip ?? (page && page > 0 ? (page - 1) * limit : 0);
+
     const [total, data] = await prisma.$transaction([
-      prisma.product.count({
-        where: { ...where },
-      }),
+      prisma.product.count(),
       prisma.product.findMany({
         // select: select ?? null,
         // omit: omit ?? null,
         where: where ?? {},
         orderBy: orderBy ?? { updatedAt: "desc" },
         // cursor: cursor ?? undefined,
-        take: pageSize ?? 10,
-        skip: skip ?? 0,
+        take: limit,
+        skip: offset,
         // distinct: distinct ?? undefined,
       }),
     ]);
 
     const pageableResult: IPageableResult<Product> = {
-      totalRecords: total,
+      totalData: total,
       currentPage: page ?? 1,
       pageSize: pageSize ?? 10,
       totalPages: Math.ceil(total / (pageSize ?? 1)) ?? 1,
       hasNext: page ? page * (pageSize ? pageSize : 10) < total : false,
       hasPrevious: page ? page > 1 : false,
+      totalRecords: data.length,
       records: data,
     };
 

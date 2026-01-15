@@ -1,10 +1,11 @@
 import type { NextFunction, Request, Response } from "express";
 import type { GetAllProductsUseCase } from "../../application/use-cases/GetAllLocalProducts.use-case.js";
-import type { GetProductBySkuIdUseCase } from "../../application/use-cases/GetProductBySkuId.use-case.js";
+import type { GetProductBySkuIdUseCase } from "../../application/use-cases/GetVtexProductBySkuId.use-case.js";
 import type { GetManyVtexProductsUseCase } from "../../application/use-cases/GetManyVtexProducts.use-case.js";
 import type { GetManyVtexProductsAndSaveUseCase } from "../../application/use-cases/GetManyVtexProductsAndSave.use-case.js";
 import { AppError } from "../../domain/errors/AppError.js";
-import { AppConfig } from "src/config/config.js";
+import { AppConfig } from "../../config/config.js";
+import type { IPageableRequest } from "../../application/common/pagination.js";
 
 export class ProductController {
   constructor(
@@ -15,16 +16,23 @@ export class ProductController {
   ) {}
 
   getAllLocal = async (req: Request, res: Response, next: NextFunction) => {
-    const { page, pageSize } = req.query;
-
-    const filters = {
-      page: page ? Number(page) : 1,
-      pageSize: pageSize ? Number(pageSize) : 10,
-    };
-
     try {
-      const products = await this.getAllProductsUseCase.execute(filters);
-      res.json(products);
+      const { page, pageSize, search } = req.query;
+
+      const pageNumber = Number(page);
+      const pageSizeNumber = Number(pageSize);
+
+      const reqOptions: IPageableRequest = {
+        page: !isNaN(pageNumber) && pageNumber > 0 ? pageNumber : 1,
+        pageSize:
+          !isNaN(pageSizeNumber) && pageSizeNumber > 0 && pageSizeNumber <= 50
+            ? pageSizeNumber
+            : 10,
+        search: typeof search === "string" ? search : "",
+      };
+
+      const response = await this.getAllProductsUseCase.execute(reqOptions);
+      res.json(response);
     } catch (error) {
       next(error);
     }

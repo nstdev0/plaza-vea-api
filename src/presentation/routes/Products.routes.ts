@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { VtexService } from "../../application/services/Vtex.service.js";
 import { ProductRepository } from "../../infrastructure/repositories/Prisma.ProductRepository.js";
-import { GetProductBySkuIdUseCase } from "../../application/use-cases/GetProductBySkuId.use-case.js";
+import { GetProductBySkuIdUseCase } from "../../application/use-cases/GetVtexProductBySkuId.use-case.js";
 import { GetAllProductsUseCase } from "../../application/use-cases/GetAllLocalProducts.use-case.js";
 import { ProductController } from "../controllers/Product.controller.js";
 import { GetManyVtexProductsUseCase } from "../../application/use-cases/GetManyVtexProducts.use-case.js";
