@@ -10,6 +10,7 @@ import morgan from "morgan";
 import productRoutes from "./presentation/routes/Products.routes.js";
 import { rateLimit } from "express-rate-limit";
 import { errorHandler } from "./presentation/middlewares/errorHandler.js";
+import { AppConfig } from "./config/config.js";
 
 const app: Application = express();
 
@@ -29,7 +30,7 @@ const apiLimiter = rateLimit({
 app.use((helmet as unknown as Function)());
 app.use(
   cors({
-    origin: "*",
+    origin: AppConfig.ALLOWRD_ORIGINS?.split(",") || [],
     methods: ["GET"],
     allowedHeaders: ["Content-Type"],
   })
