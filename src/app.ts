@@ -45,7 +45,11 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api", apiLimiter);
 
 app.get("/api/health", (req: Request, res: Response) => {
-  res.status(200).json({ status: "OK", timestamp: new Date() });
+  res.status(200).json({
+    status: "OK",
+    timestamp: new Date(),
+    uptime: process.uptime(),
+  });
 });
 
 app.use("/api/products", productRoutes);
