@@ -7,10 +7,11 @@ import type { Product } from "../../domain/entities/Product.js";
 import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
 import type { ProductCreateInput } from "../../generated/prisma/models.js";
 import { prisma } from "../database/prisma.js";
+import { inspect } from "node:util";
 
 export class ProductRepository implements IProductRepository {
   async getAll(filters: IPageableRequest): Promise<IPageableResult<Product>> {
-    let { page, pageSize } = filters ?? {};
+    let { page, pageSize, search } = filters ?? {};
     let { select, omit, where, orderBy, cursor, take, skip, distinct } =
       filters.filters ?? {};
 
@@ -28,7 +29,12 @@ export class ProductRepository implements IProductRepository {
       prisma.product.findMany({
         // select: select ?? null,
         // omit: omit ?? null,
-        where: where ?? {},
+        where: {
+          name: {
+            contains: search ?? "",
+            mode: "insensitive",
+          },
+        },
         orderBy: orderBy ?? { updatedAt: "desc" },
         // cursor: cursor ?? undefined,
         take: limit,
