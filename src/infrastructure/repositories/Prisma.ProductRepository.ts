@@ -8,6 +8,7 @@ import type { IProductRepository } from "../../domain/repositories/IProductRepos
 import type { ProductCreateInput } from "../../generated/prisma/models.js";
 import { prisma } from "../database/prisma.js";
 import { inspect } from "node:util";
+import { includes } from "zod";
 
 export class ProductRepository implements IProductRepository {
   async getAll(filters: IPageableRequest): Promise<IPageableResult<Product>> {
@@ -24,21 +25,30 @@ export class ProductRepository implements IProductRepository {
     const limit = pageSize ?? 10;
     const offset = skip ?? (page && page > 0 ? (page - 1) * limit : 0);
 
+    const whereClause: Record<string, unknown> = {};
+
+    if (search) {
+      const searchTerms = search
+        ?.trim()
+        .split(/\s+/) // Regex para separar por uno o más espacios
+        .filter(Boolean);
+
+      if (searchTerms.length > 0) {
+        whereClause.AND = searchTerms.map((term) => ({
+          OR: [
+            { name: { contains: term, mode: "insensitive" } },
+            { brand: { contains: term, mode: "insensitive" } },
+          ],
+        }));
+      }
+    }
+
     const [total, data] = await prisma.$transaction([
       prisma.product.count(),
       prisma.product.findMany({
         // select: select ?? null,
         // omit: omit ?? null,
-        where: {
-          name: {
-            contains: search ?? "",
-            mode: "insensitive",
-          },
-          brand: {
-            contains: search ?? "",
-            mode: "insensitive",
-          },
-        },
+        where: whereClause,
         orderBy: orderBy ?? { updatedAt: "desc" },
         // cursor: cursor ?? undefined,
         take: limit,
