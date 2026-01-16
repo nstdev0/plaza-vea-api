@@ -34,6 +34,10 @@ export class ProductRepository implements IProductRepository {
             contains: search ?? "",
             mode: "insensitive",
           },
+          brand: {
+            contains: search ?? "",
+            mode: "insensitive",
+          },
         },
         orderBy: orderBy ?? { updatedAt: "desc" },
         // cursor: cursor ?? undefined,
