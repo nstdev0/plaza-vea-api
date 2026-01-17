@@ -7,10 +7,11 @@ import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 
-import productRoutes from "./presentation/routes/Products.routes.js";
 import { rateLimit } from "express-rate-limit";
 import { errorHandler } from "./presentation/middlewares/errorHandler.js";
 import { AppConfig } from "./config/config.js";
+import { ProductRoutes } from "./presentation/routes/Products.routes.js";
+import { productController } from "./dependency-injection.js";
 
 const app: Application = express();
 
@@ -54,7 +55,7 @@ app.get("/api/health", (req: Request, res: Response) => {
   });
 });
 
-app.use("/api/products", productRoutes);
+app.use("/api/products", ProductRoutes.getRoutes(productController));
 
 app.use("/api/", (req: Request, res: Response) => {
   res.status(404).json({ error: "Endpoint not found" });

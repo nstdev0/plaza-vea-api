@@ -1,4 +1,4 @@
-import type { IVtexService } from "../services/IVtexService.js";
+import type { IVtexService } from "../ports/IVtexService.js";
 
 export class GetManyVtexProductsUseCase {
   constructor(private readonly vtexService: IVtexService) {}

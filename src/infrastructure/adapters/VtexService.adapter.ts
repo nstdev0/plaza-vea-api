@@ -1,5 +1,5 @@
-import type { VtexProduct } from "../../infrastructure/types/VtexTypes.js";
-import type { IVtexService } from "./IVtexService.js";
+import type { VtexProduct } from "../types/VtexTypes.js";
+import type { IVtexService } from "../../application/ports/IVtexService.js";
 import { AppConfig } from "../../config/config.js";
 
 export class VtexService implements IVtexService {
@@ -8,12 +8,12 @@ export class VtexService implements IVtexService {
   async fetchMany(from: string, to: string): Promise<VtexProduct[] | null> {
     try {
       const response = await fetch(
-        `${AppConfig.VTEX_API_URL}_from=${from}&_to=${to}`
+        `${AppConfig.VTEX_API_URL}_from=${from}&_to=${to}`,
       );
 
       if (!response.ok) {
         console.warn(
-          `[VtexService] Error HTTP ${response.status} al buscar muchos productos`
+          `[VtexService] Error HTTP ${response.status} al buscar muchos productos`,
         );
         return [];
       }
@@ -28,7 +28,7 @@ export class VtexService implements IVtexService {
     } catch (error) {
       console.error(
         `[VtexService] Fallo de red al buscar muchos productos:`,
-        error
+        error,
       );
       return null;
     }
@@ -37,12 +37,12 @@ export class VtexService implements IVtexService {
   async fetchByEan(ean: string): Promise<VtexProduct | null> {
     try {
       const response = await fetch(
-        `${AppConfig.VTEX_API_URL}fq=ean:${ean}&=&=&sc=9`
+        `${AppConfig.VTEX_API_URL}fq=ean:${ean}&=&=&sc=9`,
       );
 
       if (!response.ok) {
         console.warn(
-          `[VtexService] Error HTTP ${response.status} para EAN ${ean}`
+          `[VtexService] Error HTTP ${response.status} para EAN ${ean}`,
         );
         return null;
       }
@@ -63,12 +63,12 @@ export class VtexService implements IVtexService {
   async fetchBySkuId(skuId: string): Promise<VtexProduct | null> {
     try {
       const response = await fetch(
-        `${AppConfig.VTEX_API_URL}fq=skuId:${skuId}&=&=&sc=9`
+        `${AppConfig.VTEX_API_URL}fq=skuId:${skuId}&=&=&sc=9`,
       );
 
       if (!response.ok) {
         console.warn(
-          `[VtexService] Error HTTP ${response.status} para skuId ${skuId}`
+          `[VtexService] Error HTTP ${response.status} para skuId ${skuId}`,
         );
         return null;
       }
@@ -83,7 +83,7 @@ export class VtexService implements IVtexService {
     } catch (error) {
       console.error(
         `[VtexService] Fallo de red al buscar skuId ${skuId}:`,
-        error
+        error,
       );
       return null;
     }

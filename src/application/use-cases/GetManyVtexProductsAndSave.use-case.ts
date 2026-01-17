@@ -1,5 +1,5 @@
 import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
-import type { IVtexService } from "../services/IVtexService.js";
+import type { IVtexService } from "../ports/IVtexService.js";
 import { ProductMapper } from "../../infrastructure/mappers/ProductMapper.js";
 
 interface GetManyVtexProductsAndSaveUseCaseResponse {
@@ -9,12 +9,12 @@ interface GetManyVtexProductsAndSaveUseCaseResponse {
 export class GetManyVtexProductsAndSaveUseCase {
   constructor(
     private readonly vtexService: IVtexService,
-    private readonly productRepository: IProductRepository
+    private readonly productRepository: IProductRepository,
   ) {}
 
   async execute(
     from: string,
-    to: string
+    to: string,
   ): Promise<GetManyVtexProductsAndSaveUseCaseResponse> {
     const vtexProducts = await this.vtexService.fetchMany(from, to);
 

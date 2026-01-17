@@ -1,11 +1,11 @@
 import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
-import type { IVtexService } from "../services/IVtexService.js";
+import type { IVtexService } from "../ports/IVtexService.js";
 import { ProductMapper } from "../../infrastructure/mappers/ProductMapper.js";
 
 export class GetProductByEanUseCase {
   constructor(
     private readonly productRepository: IProductRepository,
-    private readonly vtexService: IVtexService
+    private readonly vtexService: IVtexService,
   ) {}
 
   async execute(ean: string) {
