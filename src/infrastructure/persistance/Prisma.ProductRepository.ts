@@ -3,7 +3,6 @@ import type {
   IPageableRequest,
   IPageableResult,
 } from "../../application/common/pagination.js";
-import type { Product } from "../../domain/entities/Product.js";
 import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
 import type {
   ProductCreateInput,
@@ -11,6 +10,8 @@ import type {
   ProductWhereInput,
 } from "../../generated/prisma/models.js";
 import { prisma } from "../database/prisma.js";
+import type { Product } from "../../domain/entities/Product.js";
+import { ProductMapper } from "../mappers/ProductMapper.js";
 
 export class ProductRepository implements IProductRepository {
   async getAll(filters: IPageableRequest): Promise<IPageableResult<Product>> {
@@ -54,7 +55,6 @@ export class ProductRepository implements IProductRepository {
     const whereClause: ProductWhereInput =
       andConditions.length > 0 ? { AND: andConditions } : {};
 
-
     let orderByClause: ProductOrderByWithRelationInput = { createdAt: "desc" };
 
     if (typeof orderBy === "string") {
@@ -90,31 +90,36 @@ export class ProductRepository implements IProductRepository {
       hasNext: page < totalPages,
       hasPrevious: page > 1,
       totalRecords: data.length,
-      records: data,
+      records: data.map(ProductMapper.toDomain),
     };
   }
 
   async findBySkuId(skuId: string): Promise<Product | null> {
-    return prisma.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: { skuId },
     });
+    return ProductMapper.toDomain(product);
   }
 
   async findByEan(ean: string): Promise<Product | null> {
-    return prisma.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: { ean },
     });
+    return ProductMapper.toDomain(product);
   }
 
   async create(data: ProductCreateInput): Promise<Product> {
-    return prisma.product.upsert({
+    const product = await prisma.product.upsert({
       create: data,
       update: data,
       where: { skuId: data.skuId },
     });
+    return ProductMapper.toDomain(product);
   }
 
-  async deleteAll(): Promise<void> {
-    await prisma.product.deleteMany();
+  async deleteAll(): Promise<boolean> {
+    const result = await prisma.product.deleteMany();
+    if (result.count <= 0) return false;
+    return true;
   }
 }

@@ -4,7 +4,6 @@ export class DeleteAllUseCase {
   constructor(private readonly productRepository: IProductRepository) {}
 
   async execute() {
-    await this.productRepository.deleteAll();
-    return;
+    return await this.productRepository.deleteAll();
   }
 }

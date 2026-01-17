@@ -4,7 +4,6 @@ import type { GetProductBySkuIdUseCase } from "../../application/use-cases/GetVt
 import type { GetManyVtexProductsUseCase } from "../../application/use-cases/GetManyVtexProducts.use-case.js";
 import type { GetManyVtexProductsAndSaveUseCase } from "../../application/use-cases/GetManyVtexProductsAndSave.use-case.js";
 import { AppError } from "../../domain/errors/AppError.js";
-import { AppConfig } from "../../config/config.js";
 import type { IPageableRequest } from "../../application/common/pagination.js";
 import type { DeleteAllUseCase } from "../../application/use-cases/DeleteAll.use-case.js";
 
@@ -149,7 +148,18 @@ export class ProductController {
 
   deleteAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await this.deleteAllUseCase.execute();
+      const result = await this.deleteAllUseCase.execute();
+      if (result) {
+        res.status(200).json({
+          status: "ok",
+          message: "Todos los productos han sido eliminados",
+        });
+      } else {
+        res.status(200).json({
+          status: "ok",
+          message: "No se encontraron productos para eliminar",
+        });
+      }
     } catch (error) {
       next(error);
     }
