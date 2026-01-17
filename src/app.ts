@@ -30,7 +30,7 @@ const apiLimiter = rateLimit({
 app.use((helmet as unknown as Function)());
 app.use(
   cors({
-    origin: AppConfig.ALLOWRD_ORIGINS?.split(",") || [],
+    origin: AppConfig.ALLOWED_ORIGINS?.split(",") || [],
     methods: ["GET"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
     credentials: true,
