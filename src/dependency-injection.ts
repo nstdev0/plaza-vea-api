@@ -4,7 +4,7 @@ import { GetManyVtexProductsUseCase } from "./application/use-cases/GetManyVtexP
 import { GetManyVtexProductsAndSaveUseCase } from "./application/use-cases/GetManyVtexProductsAndSave.use-case.js";
 import { GetProductBySkuIdUseCase } from "./application/use-cases/GetVtexProductBySkuId.use-case.js";
 import { VtexService } from "./infrastructure/adapters/VtexService.adapter.js";
-import { ProductRepository } from "./infrastructure/presistance/Prisma.ProductRepository.js";
+import { ProductRepository } from "./infrastructure/persistance/Prisma.ProductRepository.js";
 import { ProductController } from "./presentation/controllers/Product.controller.js";
 
 // Repositories

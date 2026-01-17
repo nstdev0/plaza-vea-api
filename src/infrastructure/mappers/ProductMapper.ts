@@ -1,6 +1,5 @@
-import { Decimal } from "@prisma/client/runtime/index-browser";
 import { Product } from "../../domain/entities/Product.js";
-import { Price } from "src/domain/value-objects/Price.js";
+import { Price } from "../../domain/value-objects/Price.js";
 
 export class ProductMapper {
   static toDomain(raw: any): Product {
@@ -14,7 +13,6 @@ export class ProductMapper {
     // Selección de datos
     // Tomamos el primer SKU (usualmente es la presentación principal)
     const item = raw.items[0];
-
     const itemId = item.itemId;
     const name = item.name;
     const searchName = item.name
