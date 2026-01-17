@@ -1,4 +1,4 @@
-import { Decimal } from "decimal.js";
+import type { Price } from "../value-objects/Price.js";
 
 export class Product {
   constructor(
@@ -6,7 +6,7 @@ export class Product {
     public name: string,
     public searchName: string,
     public ean: string | null,
-    public price: Decimal,
+    public price: Price,
     public imageUrl: string | null,
     public brand: string | null,
     public categories: string[],
