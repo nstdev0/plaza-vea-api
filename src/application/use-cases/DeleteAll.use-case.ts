@@ -1,4 +1,4 @@
-import type { IProductRepository } from "src/domain/repositories/IProductRepository.js";
+import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
 
 export class DeleteAllUseCase {
   constructor(private readonly productRepository: IProductRepository) {}

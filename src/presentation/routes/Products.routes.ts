@@ -6,7 +6,7 @@ import { GetAllProductsUseCase } from "../../application/use-cases/GetAllLocalPr
 import { ProductController } from "../controllers/Product.controller.js";
 import { GetManyVtexProductsUseCase } from "../../application/use-cases/GetManyVtexProducts.use-case.js";
 import { GetManyVtexProductsAndSaveUseCase } from "../../application/use-cases/GetManyVtexProductsAndSave.use-case.js";
-import { DeleteAllUseCase } from "src/application/use-cases/DeleteAll.use-case.js";
+import { DeleteAllUseCase } from "../../application/use-cases/DeleteAll.use-case.js";
 
 const router: Router = Router();
 

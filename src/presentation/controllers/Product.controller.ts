@@ -6,7 +6,7 @@ import type { GetManyVtexProductsAndSaveUseCase } from "../../application/use-ca
 import { AppError } from "../../domain/errors/AppError.js";
 import { AppConfig } from "../../config/config.js";
 import type { IPageableRequest } from "../../application/common/pagination.js";
-import type { DeleteAllUseCase } from "src/application/use-cases/DeleteAll.use-case.js";
+import type { DeleteAllUseCase } from "../../application/use-cases/DeleteAll.use-case.js";
 
 export class ProductController {
   constructor(
