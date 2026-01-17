@@ -6,6 +6,7 @@ import { GetAllProductsUseCase } from "../../application/use-cases/GetAllLocalPr
 import { ProductController } from "../controllers/Product.controller.js";
 import { GetManyVtexProductsUseCase } from "../../application/use-cases/GetManyVtexProducts.use-case.js";
 import { GetManyVtexProductsAndSaveUseCase } from "../../application/use-cases/GetManyVtexProductsAndSave.use-case.js";
+import { DeleteAllUseCase } from "src/application/use-cases/DeleteAll.use-case.js";
 
 const router: Router = Router();
 
@@ -15,27 +16,30 @@ const productRepository = new ProductRepository();
 // Use-cases
 const getProductBySkuIdUseCase = new GetProductBySkuIdUseCase(
   productRepository,
-  vtexService
+  vtexService,
 );
 const getAllProductsUseCase = new GetAllProductsUseCase(productRepository);
 const getManyVtexProductsUseCase = new GetManyVtexProductsUseCase(vtexService);
 const getManyVtexProductsAndSaveUseCase = new GetManyVtexProductsAndSaveUseCase(
   vtexService,
-  productRepository
+  productRepository,
 );
+const deleteAllUseCase = new DeleteAllUseCase(productRepository);
 
 // Controllers
 const productController = new ProductController(
   getAllProductsUseCase,
   getProductBySkuIdUseCase,
   getManyVtexProductsUseCase,
-  getManyVtexProductsAndSaveUseCase
+  getManyVtexProductsAndSaveUseCase,
+  deleteAllUseCase,
 );
 
 router.get("/", productController.getAllLocal);
 router.get("/skuId/:skuId", productController.getOne);
 router.post("/vtex", productController.getManyVtex);
 router.post("/vtex/getAndSave", productController.getAndSaveManyVtex);
+router.delete("/", productController.deleteAll);
 
 // Cron endpoint to fetch and save products from VTEX
 router.get("/cron-fetch", productController.cronFetch);

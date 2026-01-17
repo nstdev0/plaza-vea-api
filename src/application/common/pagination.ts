@@ -1,10 +1,14 @@
-import type { ProductFindManyArgs } from "../../generated/prisma/models.js";
+import type { ProductOrderByWithRelationInput } from "../../generated/prisma/models.js";
 
 export interface IPageableRequest {
   page?: number;
   pageSize?: number;
   search?: string | null;
-  filters?: ProductFindManyArgs;
+  filters?: {
+    categories?: string;
+    orderBy?: string;
+    price?: string;
+  };
 }
 
 export interface IPageableResult<T> {

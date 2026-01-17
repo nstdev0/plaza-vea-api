@@ -10,4 +10,5 @@ export interface IProductRepository {
   findBySkuId(skuId: string): Promise<Product | null>;
   findByEan(ean: string): Promise<Product | null>;
   create(data: ProductCreateInput): Promise<Product>;
+  deleteAll(): Promise<void>;
 }

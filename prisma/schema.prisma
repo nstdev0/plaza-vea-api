@@ -18,11 +18,13 @@ model Product {
   skuId String @id
 
   // Campos indexados para búsquedas rápidas
-  name     String
-  ean      String? @unique // Código de barras (puede ser nulo si no tiene)
-  price    Decimal @db.Decimal(10, 2)
-  imageUrl String?
-  brand    String?
+  name       String
+  searchName String
+  ean        String?  @unique // Código de barras (puede ser nulo si no tiene)
+  price      Decimal  @db.Decimal(10, 2)
+  imageUrl   String?
+  brand      String?
+  categories String[]
 
   // Guardamos TODA la data original de VTEX aquí (backup)
   rawJson Json

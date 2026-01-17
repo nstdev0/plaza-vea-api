@@ -6,7 +6,7 @@ export class ProductMapper {
     // 1. Validaciones defensivas
     if (!raw.items || raw.items.length === 0) {
       throw new Error(
-        `Producto VTEX inválido: Sin Items (SKUs). ID: ${raw.productId}`
+        `Producto VTEX inválido: Sin Items (SKUs). ID: ${raw.productId}`,
       );
     }
 
@@ -32,13 +32,15 @@ export class ProductMapper {
     return new Product(
       item.itemId, // skuId
       item.name, // name
+      item.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
       item.ean || null, // ean (puede venir null)
       new Decimal(item.sellers[0].commertialOffer.Price), // price (Convertimos number a Decimal)
       item.images[0].imageUrl || null, // imageUrl
       raw.brand || null, // brand
+      item.categories,
       raw, // rawJson (Guardamos todo el original)
       new Date(), // createdAt (Es nuevo)
-      new Date() // updatedAt (Es nuevo)
+      new Date(), // updatedAt (Es nuevo)
     );
   }
 }
