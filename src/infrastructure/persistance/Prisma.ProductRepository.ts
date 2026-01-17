@@ -54,9 +54,11 @@ export class ProductRepository implements IProductRepository {
     const whereClause: ProductWhereInput =
       andConditions.length > 0 ? { AND: andConditions } : {};
 
+
     let orderByClause: ProductOrderByWithRelationInput = { createdAt: "desc" };
+
     if (typeof orderBy === "string") {
-      const [term, order] = orderBy.split("-");
+      const [term, order] = orderBy.split(",");
       const allowedFields = ["price", "name", "createdAt"] as const;
 
       if (
