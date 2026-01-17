@@ -3,12 +3,14 @@ import type {
   IPageableRequest,
   IPageableResult,
 } from "../common/pagination.js";
-import type { Product } from "../../domain/entities/Product.js";
+import type { ProductResponse } from "../dtos/Product.dto.js";
 
 export class GetLocalProductsByInput {
   constructor(private readonly productRepository: IProductRepository) {}
 
-  async execute(filters: IPageableRequest): Promise<IPageableResult<Product>> {
+  async execute(
+    filters: IPageableRequest,
+  ): Promise<IPageableResult<ProductResponse>> {
     return await this.productRepository.getAll(filters);
   }
 }
