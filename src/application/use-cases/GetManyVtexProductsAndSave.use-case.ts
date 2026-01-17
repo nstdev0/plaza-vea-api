@@ -29,10 +29,13 @@ export class GetManyVtexProductsAndSaveUseCase {
     for (const product of vtexProducts) {
       if (product.items[0]) {
         const skuId = product.items[0].itemId;
-        const existingProduct = await this.productRepository.findBySkuId(skuId);
+        const ean = product.items[0].ean;
 
-        if (!existingProduct) {
-          const newProduct = ProductMapper.toDomain(product);
+        const existingSkuId = await this.productRepository.findBySkuId(skuId);
+        const existingEan = await this.productRepository.findByEan(ean);
+
+        if (!existingSkuId && !existingEan) {
+          const newProduct = ProductMapper.fromVtexToDomain(product);
           await this.productRepository.create(newProduct);
           total++;
         }

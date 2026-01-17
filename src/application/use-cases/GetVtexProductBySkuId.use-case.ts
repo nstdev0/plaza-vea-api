@@ -19,7 +19,7 @@ export class GetProductBySkuIdUseCase {
     const vtexResponse = await this.vtexService.fetchBySkuId(skuId);
     if (!vtexResponse) throw new Error("Product not found");
 
-    const productEntity = ProductMapper.toDomain(vtexResponse);
+    const productEntity = ProductMapper.fromVtexToDomain(vtexResponse);
     await this.productRepository.create(productEntity);
     console.log("Producto fetcheado de vtex");
     return productEntity;

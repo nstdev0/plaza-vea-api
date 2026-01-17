@@ -21,7 +21,7 @@ model Product {
   name       String
   searchName String
   ean        String?  @unique // Código de barras (puede ser nulo si no tiene)
-  price      Decimal  @db.Decimal(10, 2)
+  price      BigInt
   imageUrl   String?
   brand      String?
   categories String[]

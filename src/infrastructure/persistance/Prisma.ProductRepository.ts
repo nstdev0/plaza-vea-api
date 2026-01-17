@@ -5,16 +5,18 @@ import type {
 } from "../../application/common/pagination.js";
 import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
 import type {
-  ProductCreateInput,
   ProductOrderByWithRelationInput,
   ProductWhereInput,
 } from "../../generated/prisma/models.js";
 import { prisma } from "../database/prisma.js";
 import type { Product } from "../../domain/entities/Product.js";
 import { ProductMapper } from "../mappers/ProductMapper.js";
+import type { ProductResponse } from "../../application/dtos/Product.dto.js";
 
 export class ProductRepository implements IProductRepository {
-  async getAll(filters: IPageableRequest): Promise<IPageableResult<Product>> {
+  async getAll(
+    filters: IPageableRequest,
+  ): Promise<IPageableResult<ProductResponse>> {
     const { page = 1, pageSize = 10, search } = filters ?? {};
     const { categories, orderBy } = filters.filters ?? {};
 
@@ -82,6 +84,12 @@ export class ProductRepository implements IProductRepository {
 
     const totalPages = Math.ceil(total / limit) || 1;
 
+    const mappedData = data.map((product) =>
+      ProductMapper.fromPersistanceToDto(
+        ProductMapper.fromPersistanceToDomain(product),
+      ),
+    );
+
     return {
       totalData: total,
       currentPage: page,
@@ -90,7 +98,7 @@ export class ProductRepository implements IProductRepository {
       hasNext: page < totalPages,
       hasPrevious: page > 1,
       totalRecords: data.length,
-      records: data.map(ProductMapper.toDomain),
+      records: mappedData,
     };
   }
 
@@ -98,23 +106,29 @@ export class ProductRepository implements IProductRepository {
     const product = await prisma.product.findUnique({
       where: { skuId },
     });
-    return ProductMapper.toDomain(product);
+    if (product) {
+      return ProductMapper.fromPersistanceToDomain(product);
+    }
+    return null;
   }
 
   async findByEan(ean: string): Promise<Product | null> {
     const product = await prisma.product.findUnique({
       where: { ean },
     });
-    return ProductMapper.toDomain(product);
+    if (product) {
+      return ProductMapper.fromPersistanceToDomain(product);
+    }
+    return null;
   }
 
   async create(data: Product): Promise<Product> {
     const product = await prisma.product.upsert({
-      create: ProductMapper.toPersistance(data),
-      update: ProductMapper.toPersistance(data),
+      create: ProductMapper.fromDomainToPersistance(data),
+      update: ProductMapper.fromDomainToPersistance(data),
       where: { skuId: data.skuId },
     });
-    return ProductMapper.toDomain(product);
+    return ProductMapper.fromPersistanceToDomain(product);
   }
 
   async deleteAll(): Promise<boolean> {

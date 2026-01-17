@@ -24,10 +24,10 @@ export class Price {
 
   // Factory Method para crear desde base de datos (si guardas enteros)
   public static fromCents(
-    cents: number | bigint,
+    amount: number | bigint,
     currency: string = "PEN",
   ): Price {
-    return new Price(BigInt(cents), currency);
+    return new Price(BigInt(amount), currency);
   }
 
   // Operaciones de Dominio (Sin librerías externas)
@@ -50,5 +50,9 @@ export class Price {
 
   public getAmount(): bigint {
     return this.amount;
+  }
+
+  public getCurrency(): string {
+    return this.currency;
   }
 }
