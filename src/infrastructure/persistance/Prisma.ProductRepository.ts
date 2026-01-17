@@ -108,10 +108,10 @@ export class ProductRepository implements IProductRepository {
     return ProductMapper.toDomain(product);
   }
 
-  async create(data: ProductCreateInput): Promise<Product> {
+  async create(data: Product): Promise<Product> {
     const product = await prisma.product.upsert({
-      create: data,
-      update: data,
+      create: ProductMapper.toPersistance(data),
+      update: ProductMapper.toPersistance(data),
       where: { skuId: data.skuId },
     });
     return ProductMapper.toDomain(product);
