@@ -32,8 +32,9 @@ app.use(
   cors({
     origin: AppConfig.ALLOWRD_ORIGINS?.split(",") || [],
     methods: ["GET"],
-    allowedHeaders: ["Content-Type"],
-  })
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    credentials: true,
+  }),
 );
 app.use(express.json());
 app.use(morgan("dev"));
