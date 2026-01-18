@@ -1,4 +1,4 @@
-import type { ProductRepository } from "../../infrastructure/persistance/Prisma.ProductRepository.js";
+import type { ProductRepository } from "../../infrastructure/persistence/Prisma.ProductRepository.js";
 import type { IPageableRequest } from "../common/pagination.js";
 
 export class GetAllProductsUseCase {
