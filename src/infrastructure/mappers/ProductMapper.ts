@@ -25,8 +25,6 @@ export class ProductMapper {
     const image = item.images[0].imageUrl;
     const brand = raw.brand;
     const category = raw.categories[0].split("/").filter(Boolean);
-    console.log(raw.categories[0].split("/").filter(Boolean));
-
     const rawProduct = raw;
     const createdAt = new Date();
     const updatedAt = new Date();
