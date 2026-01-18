@@ -4,21 +4,21 @@ import type {
   IPageableResult,
 } from "../../application/common/pagination.js";
 import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
-import type {
-  ProductOrderByWithRelationInput,
-  ProductWhereInput,
-} from "../../generated/prisma/models.js";
 import { prisma } from "../database/prisma.js";
 import type { Product } from "../../domain/entities/Product.js";
 import { ProductMapper } from "../mappers/ProductMapper.js";
 import type { ProductResponse } from "../../application/dtos/Product.dto.js";
+import type {
+  ProductOrderByWithRelationInput,
+  ProductWhereInput,
+} from "./generated/prisma/models.js";
 
 export class ProductRepository implements IProductRepository {
   async getAll(
     filters: IPageableRequest,
   ): Promise<IPageableResult<ProductResponse>> {
     const { page = 1, pageSize = 10, search } = filters ?? {};
-    const { categories, orderBy } = filters.filters ?? {};
+    const { category, orderBy } = filters.filters ?? {};
 
     if (pageSize > 50) {
       throw new AppError(403, "pageSize cannot be greater than 50");
@@ -37,21 +37,16 @@ export class ProductRepository implements IProductRepository {
             { name: { contains: term, mode: "insensitive" as const } },
             { searchName: { contains: term, mode: "insensitive" as const } },
             { brand: { contains: term, mode: "insensitive" as const } },
-            { categories: { has: term } },
+            { category: { has: term } },
           ],
         }));
         andConditions.push(...searchConditions);
       }
     }
 
-    if (categories) {
-      const cats = categories.trim().split(/\s+/).filter(Boolean);
-      if (cats.length > 0) {
-        const categoryConditions = cats.map((category) => ({
-          categories: { has: category },
-        }));
-        andConditions.push(...categoryConditions);
-      }
+    if (category) {
+      const cats = category.trim();
+      andConditions.push({ category: { has: cats } });
     }
 
     const whereClause: ProductWhereInput =

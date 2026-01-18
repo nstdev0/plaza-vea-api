@@ -18,7 +18,7 @@ export class ProductController {
 
   getAllLocal = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { page, pageSize, search, categories, orderBy } = req.query;
+      const { page, pageSize, search, category, orderBy } = req.query;
 
       const pageNumber = Number(page);
       const pageSizeNumber = Number(pageSize);
@@ -31,8 +31,8 @@ export class ProductController {
             : 10,
         search: typeof search === "string" ? search : "",
         filters: {
-          categories: categories ? categories.toString() : "",
-          orderBy: orderBy ? orderBy.toString() : "",
+          category: typeof category === "string" ? category : "",
+          orderBy: typeof orderBy === "string" ? orderBy : "",
         },
       };
 

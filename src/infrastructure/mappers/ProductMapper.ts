@@ -24,7 +24,9 @@ export class ProductMapper {
 
     const image = item.images[0].imageUrl;
     const brand = raw.brand;
-    const categories = item.categories;
+    const category = raw.categories[0].split("/").filter(Boolean);
+    console.log(raw.categories[0].split("/").filter(Boolean));
+
     const rawProduct = raw;
     const createdAt = new Date();
     const updatedAt = new Date();
@@ -38,7 +40,7 @@ export class ProductMapper {
       price,
       image,
       brand,
-      categories,
+      category,
       rawProduct,
       createdAt,
       updatedAt,
@@ -54,7 +56,7 @@ export class ProductMapper {
       price: product.price.getAmount(),
       imageUrl: product.imageUrl,
       brand: product.brand,
-      categories: product.categories,
+      category: product.category,
       rawJson: product.rawJson,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
@@ -70,7 +72,7 @@ export class ProductMapper {
       Price.fromCents(product.price),
       product.imageUrl,
       product.brand,
-      product.categories,
+      product.category,
       product.rawJson,
       product.createdAt,
       product.updatedAt,
@@ -86,7 +88,7 @@ export class ProductMapper {
       price: product.price.toFloat(),
       imageUrl: product.imageUrl,
       brand: product.brand,
-      categories: product.categories,
+      category: product.category,
       rawJson: product.rawJson,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,

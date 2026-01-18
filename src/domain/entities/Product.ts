@@ -9,7 +9,7 @@ export class Product {
     public price: Price,
     public imageUrl: string | null,
     public brand: string | null,
-    public categories: string[],
+    public category: string[],
     public readonly rawJson: any,
     public createdAt: Date,
     public updatedAt: Date,

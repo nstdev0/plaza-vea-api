@@ -6,7 +6,7 @@ export interface ProductResponse {
   price: number;
   imageUrl: string | null;
   brand: string | null;
-  categories: string[];
+  category: string[];
   rawJson: Record<string, unknown>;
   createdAt: Date;
   updatedAt: Date;

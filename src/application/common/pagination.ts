@@ -5,7 +5,7 @@ export interface IPageableRequest {
   pageSize?: number;
   search?: string | null;
   filters?: {
-    categories?: string;
+    category?: string;
     orderBy?: string;
     price?: string;
   };

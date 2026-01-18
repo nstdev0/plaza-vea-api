@@ -31,10 +31,21 @@ const apiLimiter = rateLimit({
 app.use((helmet as unknown as Function)());
 app.use(
   cors({
-    origin: AppConfig.ALLOWED_ORIGINS?.split(",") || [],
+    origin: (origin, callback) => {
+      // Caso 1: Peticiones sin origen (como Postman o Server-to-Server calls desde Next.js Server Components)
+      if (!origin) return callback(null, true);
+
+      // Caso 2: El origen está en la lista blanca
+      if (AppConfig.ALLOWED_ORIGINS?.includes(origin)) {
+        return callback(null, true);
+      }
+      // Caso 3: Bloqueado
+      console.error(`Bloqueado por CORS: ${origin}`); // Útil para debugging
+      return callback(new Error("No permitido por CORS"));
+    },
+    credentials: true,
     methods: ["GET"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-    credentials: true,
   }),
 );
 app.use(express.json());
@@ -45,7 +56,7 @@ app.get("/", (req: Request, res: Response) => {
   res.redirect("/api/health");
 });
 
-app.use("/api", apiLimiter);
+// app.use("/api", apiLimiter);
 
 app.get("/api/health", (req: Request, res: Response) => {
   res.status(200).json({

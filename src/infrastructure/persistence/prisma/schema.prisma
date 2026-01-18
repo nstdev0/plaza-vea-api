@@ -24,7 +24,7 @@ model Product {
   price      BigInt
   imageUrl   String?
   brand      String?
-  categories String[]
+  category   String[]
 
   // Guardamos TODA la data original de VTEX aquí (backup)
   rawJson Json
