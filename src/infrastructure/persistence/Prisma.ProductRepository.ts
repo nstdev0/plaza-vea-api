@@ -85,8 +85,8 @@ export class ProductRepository implements IProductRepository {
     const totalPages = Math.ceil(total / limit) || 1;
 
     const mappedData = data.map((product) =>
-      ProductMapper.fromPersistanceToDto(
-        ProductMapper.fromPersistanceToDomain(product),
+      ProductMapper.fromPersistenceToDto(
+        ProductMapper.fromPersistenceToDomain(product),
       ),
     );
 
@@ -107,7 +107,7 @@ export class ProductRepository implements IProductRepository {
       where: { skuId },
     });
     if (product) {
-      return ProductMapper.fromPersistanceToDomain(product);
+      return ProductMapper.fromPersistenceToDomain(product);
     }
     return null;
   }
@@ -117,18 +117,18 @@ export class ProductRepository implements IProductRepository {
       where: { ean },
     });
     if (product) {
-      return ProductMapper.fromPersistanceToDomain(product);
+      return ProductMapper.fromPersistenceToDomain(product);
     }
     return null;
   }
 
   async create(data: Product): Promise<Product> {
     const product = await prisma.product.upsert({
-      create: ProductMapper.fromDomainToPersistance(data),
-      update: ProductMapper.fromDomainToPersistance(data),
+      create: ProductMapper.fromDomainToPersistence(data),
+      update: ProductMapper.fromDomainToPersistence(data),
       where: { skuId: data.skuId },
     });
-    return ProductMapper.fromPersistanceToDomain(product);
+    return ProductMapper.fromPersistenceToDomain(product);
   }
 
   async deleteAll(): Promise<boolean> {

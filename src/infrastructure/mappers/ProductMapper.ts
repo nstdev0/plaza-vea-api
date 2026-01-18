@@ -45,7 +45,7 @@ export class ProductMapper {
     );
   }
 
-  static fromDomainToPersistance(product: Product) {
+  static fromDomainToPersistence(product: Product) {
     return {
       skuId: product.skuId,
       name: product.name,
@@ -61,7 +61,7 @@ export class ProductMapper {
     };
   }
 
-  static fromPersistanceToDomain(product: any): Product {
+  static fromPersistenceToDomain(product: any): Product {
     return new Product(
       product.skuId,
       product.name,
@@ -77,7 +77,7 @@ export class ProductMapper {
     );
   }
 
-  static fromPersistanceToDto(product: Product): ProductResponse {
+  static fromPersistenceToDto(product: Product): ProductResponse {
     return {
       skuId: product.skuId,
       name: product.name,

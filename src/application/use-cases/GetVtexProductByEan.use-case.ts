@@ -11,13 +11,13 @@ export class GetProductByEanUseCase {
 
   async execute(ean: string): Promise<ProductResponse> {
     const localProduct = await this.productRepository.findByEan(ean);
-    if (localProduct) return ProductMapper.fromPersistanceToDto(localProduct);
+    if (localProduct) return ProductMapper.fromPersistenceToDto(localProduct);
 
     const externalData = await this.vtexService.fetchByEan(ean);
     if (!externalData) throw new Error("Product not found");
 
     const domainProduct = ProductMapper.fromVtexToDomain(externalData);
     const newProduct = await this.productRepository.create(domainProduct);
-    return ProductMapper.fromPersistanceToDto(newProduct);
+    return ProductMapper.fromPersistenceToDto(newProduct);
   }
 }
