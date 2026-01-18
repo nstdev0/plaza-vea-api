@@ -1,5 +1,3 @@
-import type { ProductOrderByWithRelationInput } from "../../generated/prisma/models.js";
-
 export interface IPageableRequest {
   page?: number;
   pageSize?: number;
