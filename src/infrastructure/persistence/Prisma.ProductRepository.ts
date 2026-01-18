@@ -1,3 +1,4 @@
+import { CATEGORIES } from "../../domain/constants/categories.constant.js";
 import { AppError } from "../../domain/errors/AppError.js";
 import type {
   IPageableRequest,
@@ -45,8 +46,14 @@ export class ProductRepository implements IProductRepository {
     }
 
     if (category) {
-      const cats = category.trim();
-      andConditions.push({ category: { has: cats } });
+      const cat = category.trim();
+
+      const matchingCategories = CATEGORIES.filter((c) => c.includes(cat));
+
+      const targets =
+        matchingCategories.length > 0 ? [...matchingCategories, cat] : [cat];
+
+      andConditions.push({ category: { hasSome: targets } });
     }
 
     const whereClause: ProductWhereInput =

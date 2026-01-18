@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -14,22 +8,15 @@ datasource db {
 }
 
 model Product {
-  // Usamos el SKU ID de VTEX como llave primaria porque es único
-  skuId String @id
-
-  // Campos indexados para búsquedas rápidas
+  skuId      String   @id
   name       String
   searchName String
-  ean        String?  @unique // Código de barras (puede ser nulo si no tiene)
+  ean        String?  @unique
   price      BigInt
   imageUrl   String?
   brand      String?
   category   String[]
-
-  // Guardamos TODA la data original de VTEX aquí (backup)
-  rawJson Json
-
-  // Auditoría
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  rawJson    Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
