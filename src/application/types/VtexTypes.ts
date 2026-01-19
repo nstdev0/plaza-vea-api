@@ -1,5 +1,3 @@
-import type { JsonValue } from "@prisma/client/runtime/client";
-
 export interface VtexRawProduct {
   productName: string;
   brand: string;
@@ -17,7 +15,6 @@ export interface VtexRawProduct {
       };
     }>;
   }>;
-  [key: string]: JsonValue;
 }
 
 export interface VtexCommertialOffer {

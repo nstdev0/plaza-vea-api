@@ -1,4 +1,4 @@
-import type { VtexProduct } from "../../infrastructure/types/VtexTypes.js";
+import type { VtexProduct } from "../types/VtexTypes.js";
 
 export interface IVtexService {
   fetchMany(from: string, to: string): Promise<VtexProduct[] | null>;

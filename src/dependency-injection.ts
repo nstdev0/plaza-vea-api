@@ -3,7 +3,7 @@ import { GetAllProductsUseCase } from "./application/use-cases/GetAllLocalProduc
 import { GetManyVtexProductsUseCase } from "./application/use-cases/GetManyVtexProducts.use-case.js";
 import { GetManyVtexProductsAndSaveUseCase } from "./application/use-cases/GetManyVtexProductsAndSave.use-case.js";
 import { GetProductBySkuIdUseCase } from "./application/use-cases/GetVtexProductBySkuId.use-case.js";
-import { VtexService } from "./infrastructure/adapters/VtexService.adapter.js";
+import { VtexService } from "./infrastructure/services/VtexService.js";
 import { ProductRepository } from "./infrastructure/persistence/Prisma.ProductRepository.js";
 import { ProductController } from "./presentation/controllers/Product.controller.js";
 

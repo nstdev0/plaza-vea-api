@@ -1,4 +1,4 @@
-import type { VtexProduct } from "../types/VtexTypes.js";
+import type { VtexProduct } from "../../application/types/VtexTypes.js";
 import type { IVtexService } from "../../application/ports/IVtexService.js";
 import { AppConfig } from "../../config/config.js";
 
