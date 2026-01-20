@@ -113,7 +113,7 @@ export class ProductController {
     try {
       const ranges = Array<[number, number]>();
 
-      for (let start = 1; start <= 9000; start += 50) {
+      for (let start = 0; start <= 2500; start += 50) {
         ranges.push([start, start + 49]);
       }
 
@@ -123,11 +123,13 @@ export class ProductController {
         const batch = ranges.slice(i, i + BATCH_SIZE);
 
         const results = await Promise.allSettled(
-          batch.map(([from, to]) =>
-            this.getManyVtexProductsAndSaveUseCase.execute(
-              from.toString(),
-              to.toString(),
-            ),
+          batch.map(
+            ([from, to]) =>
+              this.getManyVtexProductsAndSaveUseCase.execute(
+                from.toString(),
+                to.toString(),
+              ),
+            setTimeout(() => {}, 10000),
           ),
         );
 

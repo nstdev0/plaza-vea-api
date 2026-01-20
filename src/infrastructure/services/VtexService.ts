@@ -11,9 +11,12 @@ export class VtexService implements IVtexService {
         `${AppConfig.VTEX_API_URL}_from=${from}&_to=${to}`,
       );
 
+      console.log(["VtexService", `Executing fetch from ${from} to ${to}`]);
+
       if (!response.ok) {
         console.warn(
           `[VtexService] Error HTTP ${response.status} al buscar muchos productos`,
+          response.statusText,
         );
         return [];
       }
