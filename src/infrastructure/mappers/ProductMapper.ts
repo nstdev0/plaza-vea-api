@@ -88,6 +88,7 @@ export class ProductMapper {
       brand: product.brand,
       category: product.category,
       rawJson: product.rawJson,
+      description: product.rawJson?.description || null,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     };

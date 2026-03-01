@@ -8,6 +8,7 @@ export interface ProductResponse {
   brand: string | null;
   category: string[];
   rawJson?: any;
+  description?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
