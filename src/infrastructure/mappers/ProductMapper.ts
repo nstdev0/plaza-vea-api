@@ -87,6 +87,7 @@ export class ProductMapper {
       imageUrl: product.imageUrl,
       brand: product.brand,
       category: product.category,
+      rawJson: product.rawJson,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     };

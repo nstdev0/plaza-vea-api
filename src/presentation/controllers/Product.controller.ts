@@ -6,6 +6,7 @@ import type { GetManyVtexProductsAndSaveUseCase } from "../../application/use-ca
 import { AppError } from "../../domain/errors/AppError.js";
 import type { IPageableRequest } from "../../application/common/pagination.js";
 import type { DeleteAllUseCase } from "../../application/use-cases/DeleteAll.use-case.js";
+import { ProductMapper } from "../../infrastructure/mappers/ProductMapper.js";
 
 export class ProductController {
   constructor(
@@ -14,7 +15,7 @@ export class ProductController {
     private readonly getManyVtexUseCase: GetManyVtexProductsUseCase,
     private readonly getManyVtexProductsAndSaveUseCase: GetManyVtexProductsAndSaveUseCase,
     private readonly deleteAllUseCase: DeleteAllUseCase,
-  ) {}
+  ) { }
 
   getAllLocal = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -90,7 +91,11 @@ export class ProductController {
       const product = await this.getProductBySkuIdUseCase.execute(
         skuId as string,
       );
-      res.json(product);
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      const mappedProduct = ProductMapper.fromPersistenceToDto(product);
+      res.json(mappedProduct);
     } catch (error) {
       next(error);
     }
@@ -129,7 +134,7 @@ export class ProductController {
                 from.toString(),
                 to.toString(),
               ),
-            setTimeout(() => {}, 10000),
+            setTimeout(() => { }, 10000),
           ),
         );
 

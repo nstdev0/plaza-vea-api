@@ -7,6 +7,7 @@ export interface ProductResponse {
   imageUrl: string | null;
   brand: string | null;
   category: string[];
+  rawJson?: any;
   createdAt: Date;
   updatedAt: Date;
 }
