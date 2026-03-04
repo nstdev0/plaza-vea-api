@@ -10,7 +10,7 @@ export class Product {
     public imageUrl: string | null,
     public brand: string | null,
     public category: string[],
-    public readonly rawJson: any,
+    public description: string | null = null,
     public createdAt: Date,
     public updatedAt: Date,
   ) {}

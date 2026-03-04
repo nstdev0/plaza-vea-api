@@ -25,7 +25,7 @@ export class ProductMapper {
     const image = item.images[0].imageUrl;
     const brand = raw.brand;
     const category = raw.categories[0].split("/").filter(Boolean);
-    const rawProduct = raw;
+    const description = raw.description || null;
     const createdAt = new Date();
     const updatedAt = new Date();
 
@@ -39,7 +39,7 @@ export class ProductMapper {
       image,
       brand,
       category,
-      rawProduct,
+      description,
       createdAt,
       updatedAt,
     );
@@ -55,7 +55,7 @@ export class ProductMapper {
       imageUrl: product.imageUrl,
       brand: product.brand,
       category: product.category,
-      rawJson: product.rawJson,
+      description: product.description,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     };
@@ -71,7 +71,7 @@ export class ProductMapper {
       product.imageUrl,
       product.brand,
       product.category,
-      product.rawJson,
+      product.description,
       product.createdAt,
       product.updatedAt,
     );
@@ -87,8 +87,7 @@ export class ProductMapper {
       imageUrl: product.imageUrl,
       brand: product.brand,
       category: product.category,
-      rawJson: product.rawJson,
-      description: product.rawJson?.description || null,
+      description: product.description,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     };
