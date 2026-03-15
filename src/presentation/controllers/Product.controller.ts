@@ -34,6 +34,7 @@ export class ProductController {
         filters: {
           category: typeof category === "string" ? category : "",
           orderBy: typeof orderBy === "string" ? orderBy : "",
+          supermarket: typeof req.query.supermarket === "string" ? req.query.supermarket : "todos",
         },
       };
 
@@ -47,9 +48,10 @@ export class ProductController {
   getManyVtex = async (req: Request, res: Response, next: NextFunction) => {
     let from = req.body.from ? req.body.from : "1";
     let to = req.body.to ? req.body.to : "10";
+    let supermarket = typeof req.query.supermarket === "string" ? req.query.supermarket : "makro";
 
     try {
-      const response = await this.getManyVtexUseCase.execute(from, to);
+      const response = await this.getManyVtexUseCase.execute(from, to, supermarket);
       res.json(response);
     } catch (error) {
       next(error);
@@ -63,6 +65,7 @@ export class ProductController {
   ) => {
     let from = req.body.from ? req.body.from : "1";
     let to = req.body.to ? req.body.to : "10";
+    let supermarket = typeof req.query.supermarket === "string" ? req.query.supermarket : "makro";
 
     try {
       if (Number(from) > Number(to)) {
@@ -78,6 +81,7 @@ export class ProductController {
       const response = await this.getManyVtexProductsAndSaveUseCase.execute(
         from,
         to,
+        supermarket,
       );
       res.json(response);
     } catch (error) {
@@ -88,8 +92,10 @@ export class ProductController {
   getOne = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { skuId } = req.params;
+      const supermarket = typeof req.query.supermarket === "string" ? req.query.supermarket : "makro";
       const product = await this.getProductBySkuIdUseCase.execute(
         skuId as string,
+        supermarket,
       );
       if (!product) {
         return res.status(404).json({ error: "Product not found" });
@@ -123,31 +129,47 @@ export class ProductController {
       }
 
       const BATCH_SIZE = 5;
+      const supermarkets = ["makro", "wong"];
 
-      for (let i = 0; i < ranges.length; i += BATCH_SIZE) {
-        const batch = ranges.slice(i, i + BATCH_SIZE);
-
-        const results = await Promise.allSettled(
-          batch.map(
-            ([from, to]) =>
-              this.getManyVtexProductsAndSaveUseCase.execute(
-                from.toString(),
-                to.toString(),
-              ),
-            setTimeout(() => { }, 10000),
-          ),
-        );
-
-        const failed = results.filter((r) => r.status === "rejected");
-
-        if (failed.length > 0) {
-          console.error("Errores en batch:", failed.length);
-        }
-      }
       res.status(200).json({
         status: "ok",
-        message: "Cron ejecutado correctamente",
+        message: "Cron ejecutado correctamente para Makro y Wong",
       });
+
+      // Ejecutar en background (Fire-and-forget)
+      (async () => {
+        try {
+          for (const supermarket of supermarkets) {
+            // console.log(`Iniciando cron para ${supermarket}`);
+            for (let i = 0; i < ranges.length; i += BATCH_SIZE) {
+              const batch = ranges.slice(i, i + BATCH_SIZE);
+
+              const results = await Promise.allSettled(
+                batch.map(([from, to]) =>
+                  this.getManyVtexProductsAndSaveUseCase.execute(
+                    from.toString(),
+                    to.toString(),
+                    supermarket
+                  )
+                )
+              );
+
+              const failed = results.filter((r) => r.status === "rejected");
+
+              if (failed.length > 0) {
+                console.error(`Errores en batch de ${supermarket}:`, failed.length);
+                failed.forEach((f: any) => console.error(f.reason));
+              }
+
+              // Breve pausa para no saturar VTEX / la base de datos
+              await new Promise((resolve) => setTimeout(resolve, 3000));
+            }
+          }
+          console.log("Cron fetch background job completado!");
+        } catch (error) {
+          console.error("Error en background job del cron:", error);
+        }
+      })();
     } catch (error) {
       next(error);
     }

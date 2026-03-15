@@ -6,6 +6,7 @@ export interface IPageableRequest {
     category?: string;
     orderBy?: string;
     price?: string;
+    supermarket?: string;
   };
 }
 

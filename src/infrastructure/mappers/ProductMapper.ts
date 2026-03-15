@@ -3,7 +3,7 @@ import { Product } from "../../domain/entities/Product.js";
 import { Price } from "../../domain/value-objects/Price.js";
 
 export class ProductMapper {
-  static fromVtexToDomain(raw: any): Product {
+  static fromVtexToDomain(raw: any, supermarket: string): Product {
     // Validaciones defensivas
     if (!raw.items || raw.items.length === 0) {
       throw new Error(
@@ -19,7 +19,6 @@ export class ProductMapper {
     const searchName = item.name
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
-    const ean = item.ean;
     const price = Price.fromFloat(item.sellers[0].commertialOffer.Price);
 
     const image = item.images[0].imageUrl;
@@ -34,12 +33,12 @@ export class ProductMapper {
       itemId,
       name,
       searchName,
-      ean,
       price,
       image,
       brand,
       category,
       description,
+      supermarket,
       createdAt,
       updatedAt,
     );
@@ -50,12 +49,12 @@ export class ProductMapper {
       skuId: product.skuId,
       name: product.name,
       searchName: product.searchName,
-      ean: product.ean,
       price: product.price.getAmount(),
       imageUrl: product.imageUrl,
       brand: product.brand,
       category: product.category,
       description: product.description,
+      supermarket: product.supermarket,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     };
@@ -66,12 +65,12 @@ export class ProductMapper {
       product.skuId,
       product.name,
       product.searchName,
-      product.ean,
       Price.fromCents(product.price),
       product.imageUrl,
       product.brand,
       product.category,
       product.description,
+      product.supermarket,
       product.createdAt,
       product.updatedAt,
     );
@@ -82,12 +81,12 @@ export class ProductMapper {
       skuId: product.skuId,
       name: product.name,
       searchName: product.searchName,
-      ean: product.ean,
       price: product.price.toFloat(),
       imageUrl: product.imageUrl,
       brand: product.brand,
       category: product.category,
       description: product.description,
+      supermarket: product.supermarket,
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     };

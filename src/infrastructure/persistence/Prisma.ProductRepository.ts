@@ -9,17 +9,14 @@ import { prisma } from "../database/prisma.js";
 import type { Product } from "../../domain/entities/Product.js";
 import { ProductMapper } from "../mappers/ProductMapper.js";
 import type { ProductResponse } from "../../application/dtos/Product.dto.js";
-import type {
-  ProductOrderByWithRelationInput,
-  ProductWhereInput,
-} from "./generated/prisma/models.js";
+import type { Prisma } from "src/generated/prisma/client.js";
 
 export class ProductRepository implements IProductRepository {
   async getAll(
     filters: IPageableRequest,
   ): Promise<IPageableResult<ProductResponse>> {
     const { page = 1, pageSize = 10, search } = filters ?? {};
-    const { category, orderBy } = filters.filters ?? {};
+    const { category, orderBy, supermarket } = filters.filters ?? {};
 
     if (pageSize > 50) {
       throw new AppError(403, "pageSize cannot be greater than 50");
@@ -28,7 +25,7 @@ export class ProductRepository implements IProductRepository {
     const limit = pageSize;
     const offset = (page - 1) * limit;
 
-    const andConditions: ProductWhereInput[] = [];
+    const andConditions: Prisma.ProductWhereInput[] = [];
 
     if (search) {
       const searchTerms = search.trim().split(/\s+/).filter(Boolean);
@@ -56,10 +53,14 @@ export class ProductRepository implements IProductRepository {
       andConditions.push({ category: { hasSome: targets } });
     }
 
-    const whereClause: ProductWhereInput =
+    if (supermarket && supermarket !== "todos") {
+      andConditions.push({ supermarket });
+    }
+
+    const whereClause: Prisma.ProductWhereInput =
       andConditions.length > 0 ? { AND: andConditions } : {};
 
-    let orderByClause: ProductOrderByWithRelationInput = { createdAt: "desc" };
+    let orderByClause: Prisma.ProductOrderByWithRelationInput = { createdAt: "desc" };
 
     if (typeof orderBy === "string") {
       const [term, order] = orderBy.split(",");
@@ -86,7 +87,7 @@ export class ProductRepository implements IProductRepository {
 
     const totalPages = Math.ceil(total / limit) || 1;
 
-    const mappedData = data.map((product) =>
+    const mappedData = data.map((product: any) =>
       ProductMapper.fromPersistenceToDto(
         ProductMapper.fromPersistenceToDomain(product),
       ),
@@ -107,16 +108,6 @@ export class ProductRepository implements IProductRepository {
   async findBySkuId(skuId: string): Promise<Product | null> {
     const product = await prisma.product.findUnique({
       where: { skuId },
-    });
-    if (product) {
-      return ProductMapper.fromPersistenceToDomain(product);
-    }
-    return null;
-  }
-
-  async findByEan(ean: string): Promise<Product | null> {
-    const product = await prisma.product.findUnique({
-      where: { ean },
     });
     if (product) {
       return ProductMapper.fromPersistenceToDomain(product);

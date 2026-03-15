@@ -15,8 +15,9 @@ export class GetManyVtexProductsAndSaveUseCase {
   async execute(
     from: string,
     to: string,
+    supermarket: string,
   ): Promise<GetManyVtexProductsAndSaveUseCaseResponse> {
-    const vtexProducts = await this.vtexService.fetchMany(from, to);
+    const vtexProducts = await this.vtexService.fetchMany(from, to, supermarket);
 
     let response: GetManyVtexProductsAndSaveUseCaseResponse = { totalSaved: 0 };
 
@@ -29,13 +30,11 @@ export class GetManyVtexProductsAndSaveUseCase {
     for (const product of vtexProducts) {
       if (product.items[0]) {
         const skuId = product.items[0].itemId;
-        const ean = product.items[0].ean;
 
         const existingSkuId = await this.productRepository.findBySkuId(skuId);
-        const existingEan = await this.productRepository.findByEan(ean);
 
-        if (!existingSkuId && !existingEan) {
-          const newProduct = ProductMapper.fromVtexToDomain(product);
+        if (!existingSkuId) {
+          const newProduct = ProductMapper.fromVtexToDomain(product, supermarket);
           await this.productRepository.create(newProduct);
           total++;
         }

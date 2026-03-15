@@ -4,7 +4,6 @@ export interface VtexRawProduct {
   items: Array<{
     itemId: string;
     name: string;
-    ean?: string;
     images: Array<{ imageUrl: string }>;
     sellers: Array<{
       sellerDefault: boolean;
@@ -65,7 +64,6 @@ export interface VtexItem {
   name: string;
   nameComplete: string;
   complementName: string;
-  ean: string; // A veces viene vacío "", ojo con esto en el Mapper
   referenceId: Array<{
     Key: string;
     Value: string;

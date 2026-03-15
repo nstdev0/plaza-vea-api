@@ -521,11 +521,11 @@ export const ProductScalarFieldEnum = {
   skuId: 'skuId',
   name: 'name',
   searchName: 'searchName',
-  ean: 'ean',
   price: 'price',
   imageUrl: 'imageUrl',
   brand: 'brand',
   category: 'category',
+  supermarket: 'supermarket',
   description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

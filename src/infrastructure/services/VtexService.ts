@@ -5,13 +5,20 @@ import { AppConfig } from "../../config/config.js";
 export class VtexService implements IVtexService {
   // Tipado de retorno explícito: Promesa de Producto o Null
 
-  async fetchMany(from: string, to: string): Promise<VtexProduct[] | null> {
+  private getApiUrl(supermarket: string): string {
+    const url = supermarket === "wong" ? AppConfig.WONG_API_URL : AppConfig.MAKRO_API_URL;
+    if (!url) return "";
+    return url.endsWith("?") || url.endsWith("&") ? url : `${url}&`;
+  }
+
+  async fetchMany(from: string, to: string, supermarket: string): Promise<VtexProduct[] | null> {
     try {
+      const apiUrl = this.getApiUrl(supermarket);
       const response = await fetch(
-        `${AppConfig.VTEX_API_URL}_from=${from}&_to=${to}`,
+        `${apiUrl}_from=${from}&_to=${to}`,
       );
 
-      console.log(["VtexService", `Executing fetch from ${from} to ${to}`]);
+      console.log(["VtexService", `Executing fetch from ${from} to ${to} for ${supermarket}`]);
 
       if (!response.ok) {
         console.warn(
@@ -37,36 +44,11 @@ export class VtexService implements IVtexService {
     }
   }
 
-  async fetchByEan(ean: string): Promise<VtexProduct | null> {
+  async fetchBySkuId(skuId: string, supermarket: string): Promise<VtexProduct | null> {
     try {
+      const apiUrl = this.getApiUrl(supermarket);
       const response = await fetch(
-        `${AppConfig.VTEX_API_URL}fq=ean:${ean}&=&=&sc=9`,
-      );
-
-      if (!response.ok) {
-        console.warn(
-          `[VtexService] Error HTTP ${response.status} para EAN ${ean}`,
-        );
-        return null;
-      }
-
-      const rawData = await response.json();
-
-      if (!Array.isArray(rawData) || rawData.length === 0) {
-        return null;
-      }
-
-      return rawData[0] as VtexProduct;
-    } catch (error) {
-      console.error(`[VtexService] Fallo de red al buscar EAN ${ean}:`, error);
-      return null;
-    }
-  }
-
-  async fetchBySkuId(skuId: string): Promise<VtexProduct | null> {
-    try {
-      const response = await fetch(
-        `${AppConfig.VTEX_API_URL}fq=skuId:${skuId}&=&=&sc=9`,
+        `${apiUrl}fq=skuId:${skuId}&=&=&sc=9`,
       );
 
       if (!response.ok) {

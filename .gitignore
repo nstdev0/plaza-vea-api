@@ -22,4 +22,4 @@ build/
 Thumbs.db
 
 # Prisma
-src/infrastructure/persistence/generated
+/generated/prisma

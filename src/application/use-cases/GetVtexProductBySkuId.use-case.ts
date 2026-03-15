@@ -8,7 +8,7 @@ export class GetProductBySkuIdUseCase {
     private readonly vtexService: IVtexService,
   ) {}
 
-  async execute(skuId: string) {
+  async execute(skuId: string, supermarket: string) {
     const localProduct = await this.productRepository.findBySkuId(skuId);
 
     if (localProduct) {
@@ -16,10 +16,10 @@ export class GetProductBySkuIdUseCase {
       return localProduct;
     }
 
-    const vtexResponse = await this.vtexService.fetchBySkuId(skuId);
+    const vtexResponse = await this.vtexService.fetchBySkuId(skuId, supermarket);
     if (!vtexResponse) throw new Error("Product not found");
 
-    const productEntity = ProductMapper.fromVtexToDomain(vtexResponse);
+    const productEntity = ProductMapper.fromVtexToDomain(vtexResponse, supermarket);
     await this.productRepository.create(productEntity);
     console.log("Producto fetcheado de vtex");
     return productEntity;
