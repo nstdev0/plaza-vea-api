@@ -5,7 +5,7 @@ import type {
   IPageableResult,
 } from "../../application/common/pagination.js";
 import type { IProductRepository } from "../../domain/repositories/IProductRepository.js";
-import { prisma } from "../database/prisma.js";
+import { prisma } from "../../lib/prisma.js";
 import type { Product } from "../../domain/entities/Product.js";
 import { ProductMapper } from "../mappers/ProductMapper.js";
 import type { ProductResponse } from "../../application/dtos/Product.dto.js";
