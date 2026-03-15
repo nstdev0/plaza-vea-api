@@ -17,18 +17,26 @@ import type * as Prisma from "./prismaNamespace.js"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.2.0",
-  "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
+  "clientVersion": "7.5.0",
+  "engineVersion": "280c870be64f457428992c43c1f6d557fab6e29e",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Product {\n  skuId       String   @id\n  name        String\n  searchName  String\n  price       BigInt\n  imageUrl    String?\n  brand       String?\n  category    String[]\n  supermarket String\n  description String?\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Product {\n  skuId       String   @id\n  name        String\n  searchName  String\n  price       BigInt\n  imageUrl    String?\n  brand       String?\n  category    String[]\n  description String?\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n  supermarket String\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
     "types": {}
+  },
+  "parameterizationSchema": {
+    "strings": [],
+    "graph": ""
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Product\":{\"fields\":[{\"name\":\"skuId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"searchName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"brand\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supermarket\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Product\":{\"fields\":[{\"name\":\"skuId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"searchName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"brand\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"supermarket\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.parameterizationSchema = {
+  strings: JSON.parse("[\"where\",\"Product.findUnique\",\"Product.findUniqueOrThrow\",\"orderBy\",\"cursor\",\"Product.findFirst\",\"Product.findFirstOrThrow\",\"Product.findMany\",\"data\",\"Product.createOne\",\"Product.createMany\",\"Product.createManyAndReturn\",\"Product.updateOne\",\"Product.updateMany\",\"Product.updateManyAndReturn\",\"create\",\"update\",\"Product.upsertOne\",\"Product.deleteOne\",\"Product.deleteMany\",\"having\",\"_count\",\"_avg\",\"_sum\",\"_min\",\"_max\",\"Product.groupBy\",\"Product.aggregate\",\"AND\",\"OR\",\"NOT\",\"skuId\",\"name\",\"searchName\",\"price\",\"imageUrl\",\"brand\",\"category\",\"description\",\"createdAt\",\"updatedAt\",\"supermarket\",\"equals\",\"in\",\"notIn\",\"lt\",\"lte\",\"gt\",\"gte\",\"not\",\"has\",\"hasEvery\",\"hasSome\",\"contains\",\"startsWith\",\"endsWith\",\"set\",\"push\",\"increment\",\"decrement\",\"multiply\",\"divide\"]"),
+  graph: "OwsQDhwAACsAMB0AAAQAEB4AACsAMB8BAAAAASABACwAISEBACwAISIEAC0AISMBAC4AISQBAC4AISUAAB4AICYBAC4AISdAAC8AIShAAC8AISkBACwAIQEAAAABACABAAAAAQAgDhwAACsAMB0AAAQAEB4AACsAMB8BACwAISABACwAISEBACwAISIEAC0AISMBAC4AISQBAC4AISUAAB4AICYBAC4AISdAAC8AIShAAC8AISkBACwAIQMjAAAwACAkAAAwACAmAAAwACADAAAABAAgAwAABQAwBAAAAQAgAwAAAAQAIAMAAAUAMAQAAAEAIAMAAAAEACADAAAFADAEAAABACALHwEAAAABIAEAAAABIQEAAAABIgQAAAABIwEAAAABJAEAAAABJQAAOwAgJgEAAAABJ0AAAAABKEAAAAABKQEAAAABAQgAAAkAIAsfAQAAAAEgAQAAAAEhAQAAAAEiBAAAAAEjAQAAAAEkAQAAAAElAAA7ACAmAQAAAAEnQAAAAAEoQAAAAAEpAQAAAAEBCAAACwAwAQgAAAsAMAsfAQA2ACEgAQA2ACEhAQA2ACEiBAA3ACEjAQA4ACEkAQA4ACElAAA5ACAmAQA4ACEnQAA6ACEoQAA6ACEpAQA2ACECAAAAAQAgCAAADgAgCx8BADYAISABADYAISEBADYAISIEADcAISMBADgAISQBADgAISUAADkAICYBADgAISdAADoAIShAADoAISkBADYAIQIAAAAEACAIAAAQACACAAAABAAgCAAAEAAgAwAAAAEAIA8AAAkAIBAAAA4AIAEAAAABACABAAAABAAgCBUAADEAIBYAADIAIBcAADUAIBgAADQAIBkAADMAICMAADAAICQAADAAICYAADAAIA4cAAAaADAdAAAXABAeAAAaADAfAQAbACEgAQAbACEhAQAbACEiBAAcACEjAQAdACEkAQAdACElAAAeACAmAQAdACEnQAAfACEoQAAfACEpAQAbACEDAAAABAAgAwAAFgAwFAAAFwAgAwAAAAQAIAMAAAUAMAQAAAEAIA4cAAAaADAdAAAXABAeAAAaADAfAQAbACEgAQAbACEhAQAbACEiBAAcACEjAQAdACEkAQAdACElAAAeACAmAQAdACEnQAAfACEoQAAfACEpAQAbACEOFQAAIQAgGAAAKgAgGQAAKgAgKgEAAAABKwEAAAAELAEAAAAELQEAAAABLgEAAAABLwEAAAABMAEAAAABMQEAKQAhNQEAAAABNgEAAAABNwEAAAABDRUAACEAIBYAACcAIBcAACgAIBgAACgAIBkAACgAICoEAAAAASsEAAAABCwEAAAABC0EAAAAAS4EAAAAAS8EAAAAATAEAAAAATEEACYAIQ4VAAAkACAYAAAlACAZAAAlACAqAQAAAAErAQAAAAUsAQAAAAUtAQAAAAEuAQAAAAEvAQAAAAEwAQAAAAExAQAjACE1AQAAAAE2AQAAAAE3AQAAAAEEKgEAAAAFMgEAAAABMwEAAAAENAEAAAAECxUAACEAIBgAACIAIBkAACIAICpAAAAAAStAAAAABCxAAAAABC1AAAAAAS5AAAAAAS9AAAAAATBAAAAAATFAACAAIQsVAAAhACAYAAAiACAZAAAiACAqQAAAAAErQAAAAAQsQAAAAAQtQAAAAAEuQAAAAAEvQAAAAAEwQAAAAAExQAAgACEIKgIAAAABKwIAAAAELAIAAAAELQIAAAABLgIAAAABLwIAAAABMAIAAAABMQIAIQAhCCpAAAAAAStAAAAABCxAAAAABC1AAAAAAS5AAAAAAS9AAAAAATBAAAAAATFAACIAIQ4VAAAkACAYAAAlACAZAAAlACAqAQAAAAErAQAAAAUsAQAAAAUtAQAAAAEuAQAAAAEvAQAAAAEwAQAAAAExAQAjACE1AQAAAAE2AQAAAAE3AQAAAAEIKgIAAAABKwIAAAAFLAIAAAAFLQIAAAABLgIAAAABLwIAAAABMAIAAAABMQIAJAAhCyoBAAAAASsBAAAABSwBAAAABS0BAAAAAS4BAAAAAS8BAAAAATABAAAAATEBACUAITUBAAAAATYBAAAAATcBAAAAAQ0VAAAhACAWAAAnACAXAAAoACAYAAAoACAZAAAoACAqBAAAAAErBAAAAAQsBAAAAAQtBAAAAAEuBAAAAAEvBAAAAAEwBAAAAAExBAAmACEIKggAAAABKwgAAAAELAgAAAAELQgAAAABLggAAAABLwgAAAABMAgAAAABMQgAJwAhCCoEAAAAASsEAAAABCwEAAAABC0EAAAAAS4EAAAAAS8EAAAAATAEAAAAATEEACgAIQ4VAAAhACAYAAAqACAZAAAqACAqAQAAAAErAQAAAAQsAQAAAAQtAQAAAAEuAQAAAAEvAQAAAAEwAQAAAAExAQApACE1AQAAAAE2AQAAAAE3AQAAAAELKgEAAAABKwEAAAAELAEAAAAELQEAAAABLgEAAAABLwEAAAABMAEAAAABMQEAKgAhNQEAAAABNgEAAAABNwEAAAABDhwAACsAMB0AAAQAEB4AACsAMB8BACwAISABACwAISEBACwAISIEAC0AISMBAC4AISQBAC4AISUAAB4AICYBAC4AISdAAC8AIShAAC8AISkBACwAIQsqAQAAAAErAQAAAAQsAQAAAAQtAQAAAAEuAQAAAAEvAQAAAAEwAQAAAAExAQAqACE1AQAAAAE2AQAAAAE3AQAAAAEIKgQAAAABKwQAAAAELAQAAAAELQQAAAABLgQAAAABLwQAAAABMAQAAAABMQQAKAAhCyoBAAAAASsBAAAABSwBAAAABS0BAAAAAS4BAAAAAS8BAAAAATABAAAAATEBACUAITUBAAAAATYBAAAAATcBAAAAAQgqQAAAAAErQAAAAAQsQAAAAAQtQAAAAAEuQAAAAAEvQAAAAAEwQAAAAAExQAAiACEAAAAAAAABOAEAAAABBTgEAAAAAToEAAAAATsEAAAAATwEAAAAAT0EAAAAAQE4AQAAAAECOAEAAAAEOQEAAAAFAThAAAAAAQE4AQAAAAQAAAAABRUABhYABxcACBgACRkACgAAAAAABRUABhYABxcACBgACRkACgECAQIDAQUGAQYHAQcIAQkKAQoMAgsNAwwPAQ0RAg4SBBETARIUARMVAhoYBRsZCw"
+}
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -37,12 +45,14 @@ async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Modul
 }
 
 config.compilerWasm = {
-  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_bg.postgresql.mjs"),
+  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.mjs"),
 
   getQueryCompilerWasmModule: async () => {
-    const { wasm } = await import("@prisma/client/runtime/query_compiler_bg.postgresql.wasm-base64.mjs")
+    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.mjs")
     return await decodeBase64AsWasm(wasm)
-  }
+  },
+
+  importName: "./query_compiler_fast_bg.js"
 }
 
 
@@ -57,7 +67,9 @@ export interface PrismaClientConstructor {
    * Type-safe database client for TypeScript
    * @example
    * ```
-   * const prisma = new PrismaClient()
+   * const prisma = new PrismaClient({
+   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * })
    * // Fetch zero or more Products
    * const products = await prisma.product.findMany()
    * ```
@@ -79,7 +91,9 @@ export interface PrismaClientConstructor {
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient()
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
  * // Fetch zero or more Products
  * const products = await prisma.product.findMany()
  * ```
@@ -164,7 +178,7 @@ export interface PrismaClient<
    * ])
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+   * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 

@@ -41,10 +41,10 @@ export type ProductMinAggregateOutputType = {
   price: bigint | null
   imageUrl: string | null
   brand: string | null
-  supermarket: string | null
   description: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  supermarket: string | null
 }
 
 export type ProductMaxAggregateOutputType = {
@@ -54,10 +54,10 @@ export type ProductMaxAggregateOutputType = {
   price: bigint | null
   imageUrl: string | null
   brand: string | null
-  supermarket: string | null
   description: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  supermarket: string | null
 }
 
 export type ProductCountAggregateOutputType = {
@@ -68,10 +68,10 @@ export type ProductCountAggregateOutputType = {
   imageUrl: number
   brand: number
   category: number
-  supermarket: number
   description: number
   createdAt: number
   updatedAt: number
+  supermarket: number
   _all: number
 }
 
@@ -91,10 +91,10 @@ export type ProductMinAggregateInputType = {
   price?: true
   imageUrl?: true
   brand?: true
-  supermarket?: true
   description?: true
   createdAt?: true
   updatedAt?: true
+  supermarket?: true
 }
 
 export type ProductMaxAggregateInputType = {
@@ -104,10 +104,10 @@ export type ProductMaxAggregateInputType = {
   price?: true
   imageUrl?: true
   brand?: true
-  supermarket?: true
   description?: true
   createdAt?: true
   updatedAt?: true
+  supermarket?: true
 }
 
 export type ProductCountAggregateInputType = {
@@ -118,10 +118,10 @@ export type ProductCountAggregateInputType = {
   imageUrl?: true
   brand?: true
   category?: true
-  supermarket?: true
   description?: true
   createdAt?: true
   updatedAt?: true
+  supermarket?: true
   _all?: true
 }
 
@@ -219,10 +219,10 @@ export type ProductGroupByOutputType = {
   imageUrl: string | null
   brand: string | null
   category: string[]
-  supermarket: string
   description: string | null
   createdAt: Date
   updatedAt: Date
+  supermarket: string
   _count: ProductCountAggregateOutputType | null
   _avg: ProductAvgAggregateOutputType | null
   _sum: ProductSumAggregateOutputType | null
@@ -256,10 +256,10 @@ export type ProductWhereInput = {
   imageUrl?: Prisma.StringNullableFilter<"Product"> | string | null
   brand?: Prisma.StringNullableFilter<"Product"> | string | null
   category?: Prisma.StringNullableListFilter<"Product">
-  supermarket?: Prisma.StringFilter<"Product"> | string
   description?: Prisma.StringNullableFilter<"Product"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
+  supermarket?: Prisma.StringFilter<"Product"> | string
 }
 
 export type ProductOrderByWithRelationInput = {
@@ -270,10 +270,10 @@ export type ProductOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   brand?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
-  supermarket?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  supermarket?: Prisma.SortOrder
 }
 
 export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -287,10 +287,10 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   imageUrl?: Prisma.StringNullableFilter<"Product"> | string | null
   brand?: Prisma.StringNullableFilter<"Product"> | string | null
   category?: Prisma.StringNullableListFilter<"Product">
-  supermarket?: Prisma.StringFilter<"Product"> | string
   description?: Prisma.StringNullableFilter<"Product"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
+  supermarket?: Prisma.StringFilter<"Product"> | string
 }, "skuId">
 
 export type ProductOrderByWithAggregationInput = {
@@ -301,10 +301,10 @@ export type ProductOrderByWithAggregationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   brand?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
-  supermarket?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  supermarket?: Prisma.SortOrder
   _count?: Prisma.ProductCountOrderByAggregateInput
   _avg?: Prisma.ProductAvgOrderByAggregateInput
   _max?: Prisma.ProductMaxOrderByAggregateInput
@@ -323,10 +323,10 @@ export type ProductScalarWhereWithAggregatesInput = {
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   brand?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   category?: Prisma.StringNullableListFilter<"Product">
-  supermarket?: Prisma.StringWithAggregatesFilter<"Product"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
+  supermarket?: Prisma.StringWithAggregatesFilter<"Product"> | string
 }
 
 export type ProductCreateInput = {
@@ -337,10 +337,10 @@ export type ProductCreateInput = {
   imageUrl?: string | null
   brand?: string | null
   category?: Prisma.ProductCreatecategoryInput | string[]
-  supermarket: string
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  supermarket: string
 }
 
 export type ProductUncheckedCreateInput = {
@@ -351,10 +351,10 @@ export type ProductUncheckedCreateInput = {
   imageUrl?: string | null
   brand?: string | null
   category?: Prisma.ProductCreatecategoryInput | string[]
-  supermarket: string
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  supermarket: string
 }
 
 export type ProductUpdateInput = {
@@ -365,10 +365,10 @@ export type ProductUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.ProductUpdatecategoryInput | string[]
-  supermarket?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supermarket?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductUncheckedUpdateInput = {
@@ -379,10 +379,10 @@ export type ProductUncheckedUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.ProductUpdatecategoryInput | string[]
-  supermarket?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supermarket?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductCreateManyInput = {
@@ -393,10 +393,10 @@ export type ProductCreateManyInput = {
   imageUrl?: string | null
   brand?: string | null
   category?: Prisma.ProductCreatecategoryInput | string[]
-  supermarket: string
   description?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  supermarket: string
 }
 
 export type ProductUpdateManyMutationInput = {
@@ -407,10 +407,10 @@ export type ProductUpdateManyMutationInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.ProductUpdatecategoryInput | string[]
-  supermarket?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supermarket?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductUncheckedUpdateManyInput = {
@@ -421,10 +421,10 @@ export type ProductUncheckedUpdateManyInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.ProductUpdatecategoryInput | string[]
-  supermarket?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supermarket?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -443,10 +443,10 @@ export type ProductCountOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   brand?: Prisma.SortOrder
   category?: Prisma.SortOrder
-  supermarket?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  supermarket?: Prisma.SortOrder
 }
 
 export type ProductAvgOrderByAggregateInput = {
@@ -460,10 +460,10 @@ export type ProductMaxOrderByAggregateInput = {
   price?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   brand?: Prisma.SortOrder
-  supermarket?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  supermarket?: Prisma.SortOrder
 }
 
 export type ProductMinOrderByAggregateInput = {
@@ -473,10 +473,10 @@ export type ProductMinOrderByAggregateInput = {
   price?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   brand?: Prisma.SortOrder
-  supermarket?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  supermarket?: Prisma.SortOrder
 }
 
 export type ProductSumOrderByAggregateInput = {
@@ -522,10 +522,10 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   imageUrl?: boolean
   brand?: boolean
   category?: boolean
-  supermarket?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  supermarket?: boolean
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -536,10 +536,10 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   imageUrl?: boolean
   brand?: boolean
   category?: boolean
-  supermarket?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  supermarket?: boolean
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -550,10 +550,10 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   imageUrl?: boolean
   brand?: boolean
   category?: boolean
-  supermarket?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  supermarket?: boolean
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectScalar = {
@@ -564,13 +564,13 @@ export type ProductSelectScalar = {
   imageUrl?: boolean
   brand?: boolean
   category?: boolean
-  supermarket?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  supermarket?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"skuId" | "name" | "searchName" | "price" | "imageUrl" | "brand" | "category" | "supermarket" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"skuId" | "name" | "searchName" | "price" | "imageUrl" | "brand" | "category" | "description" | "createdAt" | "updatedAt" | "supermarket", ExtArgs["result"]["product"]>
 
 export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Product"
@@ -583,10 +583,10 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     imageUrl: string | null
     brand: string | null
     category: string[]
-    supermarket: string
     description: string | null
     createdAt: Date
     updatedAt: Date
+    supermarket: string
   }, ExtArgs["result"]["product"]>
   composites: {}
 }
@@ -1017,10 +1017,10 @@ export interface ProductFieldRefs {
   readonly imageUrl: Prisma.FieldRef<"Product", 'String'>
   readonly brand: Prisma.FieldRef<"Product", 'String'>
   readonly category: Prisma.FieldRef<"Product", 'String[]'>
-  readonly supermarket: Prisma.FieldRef<"Product", 'String'>
   readonly description: Prisma.FieldRef<"Product", 'String'>
   readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Product", 'DateTime'>
+  readonly supermarket: Prisma.FieldRef<"Product", 'String'>
 }
     
 
@@ -1197,6 +1197,11 @@ export type ProductFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Skip the first `n` Products.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Products.
+   */
   distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
 }
 
